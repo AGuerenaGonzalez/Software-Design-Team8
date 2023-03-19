@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-abstract class Screen extends JPanel implements ActionListener, AppConstants {
+abstract class Screen extends JPanel implements ActionListener {
      protected ImageIcon scaleImage(ImageIcon icon, int width, int height){
          Image img = icon.getImage();
          return new ImageIcon(img.getScaledInstance(width, height, Image.SCALE_SMOOTH));

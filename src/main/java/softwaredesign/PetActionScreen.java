@@ -110,6 +110,7 @@ public class PetActionScreen extends Screen {
         String buttonName = button.getName();
         switch(buttonName){
             case "playButton":
+
                 System.out.println("Playing");
                 break;
             case "feedButton":

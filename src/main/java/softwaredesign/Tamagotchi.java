@@ -40,12 +40,7 @@ public class Tamagotchi extends JFrame {
         switch(buttonName){
             case "playButton":
                 break;
-        }
-    }
-    public static void switchScreen(String buttonName, Animal p){
-        switch(buttonName){
             case "confirmButton":
-                pet = p;
                 PetActionScreen petAction = new PetActionScreen();
                 PANELSWITCHER.add(petAction, "petActionScreen");
                 CL.show(PANELSWITCHER, "petActionScreen");
@@ -55,5 +50,9 @@ public class Tamagotchi extends JFrame {
     }
     public static Animal getPet(){
         return pet;
+    }
+
+    public static void setPet(Animal p){
+        pet = p;
     }
 }
