@@ -4,8 +4,6 @@ import javax.swing.*;
 
 abstract class MinigameScreen extends Screen{
     MinigameScreen() {
-        this.setLayout(null);
-        addTitle();
     }
 
     public void addTitle(){
@@ -21,4 +19,5 @@ abstract class MinigameScreen extends Screen{
 
         this.add(tittlePanel);
     }
+    abstract void addMinigameName();
 }

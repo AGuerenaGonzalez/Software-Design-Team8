@@ -42,7 +42,11 @@ public class Tamagotchi extends JFrame {
                 GuessNumberScreen guessNumber = new GuessNumberScreen();
                 PANELSWITCHER.add(guessNumber, "guessNumberScreen");
                 CL.show(PANELSWITCHER, "guessNumberScreen");
-
+                break;
+            case "memoryGameButton":
+                MemoryGameScreen memoryGame = new MemoryGameScreen();
+                PANELSWITCHER.add(memoryGame, "memoryGameScreen");
+                CL.show(PANELSWITCHER, "memoryGameScreen");
                 break;
         }
     }
