@@ -38,7 +38,15 @@ public class Tamagotchi extends JFrame {
 
     public static void switchScreen(String buttonName) {
         switch(buttonName){
-            case "playButton":
+            case "guessNumberButton":
+                GuessNumberScreen guessNumber = new GuessNumberScreen();
+                PANELSWITCHER.add(guessNumber, "guessNumberScreen");
+                CL.show(PANELSWITCHER, "guessNumberScreen");
+                break;
+            case "memoryGameButton":
+                MemoryGameScreen memoryGame = new MemoryGameScreen();
+                PANELSWITCHER.add(memoryGame, "memoryGameScreen");
+                CL.show(PANELSWITCHER, "memoryGameScreen");
                 break;
             case "confirmButton":
                 PetActionScreen petAction = new PetActionScreen();

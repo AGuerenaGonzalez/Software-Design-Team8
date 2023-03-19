@@ -112,6 +112,15 @@ public class PetActionScreen extends Screen {
             case "playButton":
 
                 System.out.println("Playing");
+                String[] responses = {"GuessTheNumber", "MemoryGame", "Cancel"};
+                int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "xd", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
+                System.out.println(answer);
+                if(answer == 0) {
+                    Tamagotchi.switchScreen("guessNumberButton");
+                }
+                if(answer == 1) {
+                    Tamagotchi.switchScreen("memoryGameButton");
+                }
                 break;
             case "feedButton":
                 System.out.println("Feeding");
