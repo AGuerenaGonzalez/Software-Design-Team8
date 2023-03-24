@@ -10,8 +10,7 @@ abstract class Animal implements Observer {
 
     private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
 
-
-    protected void setVals(String name, String color, int cleanDiffVal,
+    public Animal(String name, String color, int cleanDiffVal,
                            int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
         this.name = name;
         this.color = color;

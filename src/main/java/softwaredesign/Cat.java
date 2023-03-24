@@ -2,7 +2,7 @@ package softwaredesign;
 import java.awt.Color;
 
 public class Cat extends Animal{
-    public Cat(String name, String color){
-        this.setVals(name, color, 16, 8, 12, 20);
+    public Cat(String name, String color, int cDV, int hDV, int mDV, int eDV){
+        super(name, color, cDV, hDV, mDV, eDV);
     }
 }

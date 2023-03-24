@@ -9,7 +9,7 @@ public class Tamagotchi extends JFrame {
     private static final JPanel PANELSWITCHER = new JPanel();
     private static Animal pet = null;
 
-    public Tamagotchi(){
+    private Tamagotchi(){
         this.setTitle("Tamagotchi");
         this.setSize(AppConstants.WIDTH, AppConstants.HEIGHT);
         this.setResizable(false);
@@ -28,9 +28,10 @@ public class Tamagotchi extends JFrame {
     public static void main (String[] args) throws IOException {
         System.out.println("Welcome to Software Design");
 
-        Tamagotchi appFrame = new Tamagotchi();
+        new Tamagotchi();
 
     }
+
     /*
     TODO:
     Change buttonName to screenName

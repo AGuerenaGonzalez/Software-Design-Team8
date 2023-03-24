@@ -150,18 +150,15 @@ public class SelectPetScreen extends Screen{
     Add exceptions
      */
     private Animal createPet(String animal, String color, String name) {
-        Animal pet;
+        AnimalFactory animalFactory = new AnimalFactory();
         switch(animal){
             case "cat":
-                pet = new Cat(name, color);
-                break;
+                return animalFactory.getAnimal("CAT", name, color);
             case "hamster":
-                pet = new Hamster(name, color);
-                break;
+                return animalFactory.getAnimal("HAMSTER", name, color);
             case "dog":
             default:
-                pet = new Dog(name, color);
+                return animalFactory.getAnimal("DOG", name, color);
         }
-        return pet;
     }
 }

@@ -1,7 +1,7 @@
 package softwaredesign;
 
 public class Hamster extends Animal{
-    public Hamster(String name, String color){
-        this.setVals(name, color, 4, 12, 20, 4);
+    public Hamster(String name, String color, int cDV, int hDV, int mDV, int eDV){
+        super(name, color, cDV, hDV, mDV, eDV);
     }
 }
