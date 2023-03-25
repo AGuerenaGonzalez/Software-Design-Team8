@@ -99,7 +99,20 @@ public class PetActionScreen extends Screen {
             }
         }
         else if(pet instanceof Hamster) {
-
+            switch(pet.color) {
+                case "white":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteHamster.png");
+                    break;
+                case "black":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackHamster.png");
+                    break;
+                case "brown":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownHamster.png");
+                    break;
+                default:
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
+                    break;
+            }
         }
         petIMG = scaleImage(petIMG, 450, 450);
         petLabel.setIcon(petIMG);
