@@ -49,11 +49,11 @@ public class Tamagotchi extends JFrame {
                 PANELSWITCHER.add(memoryGame, "memoryGameScreen");
                 CL.show(PANELSWITCHER, "memoryGameScreen");
                 break;
+            case "returnButton":
             case "confirmButton":
                 PetActionScreen petAction = new PetActionScreen();
                 PANELSWITCHER.add(petAction, "petActionScreen");
                 CL.show(PANELSWITCHER, "petActionScreen");
-
                 break;
         }
     }
