@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class PetActionScreen extends Screen {
     int CHANGETHISSSSSS = 4;
@@ -48,7 +50,7 @@ public class PetActionScreen extends Screen {
 
     private void addTitle(){
         JLabel title = new JLabel();
-        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/tittleGroup8.png"), 400, 71);
+        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
         title.setIcon(titleImg);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setVerticalAlignment(JLabel.CENTER);
@@ -60,9 +62,47 @@ public class PetActionScreen extends Screen {
         this.add(tittlePanel);
     }
     private void addPetImg(){
+        Animal pet = Tamagotchi.getPet();
         JLabel petLabel = new JLabel();
-        ImageIcon dog = scaleImage(new ImageIcon("src/main/java/softwaredesign/dog.png"), 350, 350);
-        petLabel.setIcon(dog);
+        ImageIcon petIMG = null;
+        if(pet instanceof Cat) {
+            switch(pet.color) {
+                case "white":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteCat.png");
+                    break;
+                case "black":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackCat.png");
+                    break;
+                case "brown":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownCat.png");
+                    break;
+                default:
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
+                    break;
+            }
+
+        }
+        else if (pet instanceof Dog) {
+            switch(pet.color) {
+                case "white":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteDog.png");
+                    break;
+                case "black":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackDog.png");
+                    break;
+                case "brown":
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownDog.png");
+                    break;
+                default:
+                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
+                    break;
+            }
+        }
+        else if(pet instanceof Hamster) {
+
+        }
+        petIMG = scaleImage(petIMG, 450, 450);
+        petLabel.setIcon(petIMG);
 
         JPanel petPanel = new JPanel();
         petPanel.setBounds(0,200,AppConstants.WIDTH, 400);
