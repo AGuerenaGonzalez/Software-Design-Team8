@@ -10,7 +10,8 @@ public class Vital extends JProgressBar {
     private boolean isEmpty = false;
     private Observer observer = null;
 
-    public Vital(int changeVal) {
+    public Vital(Observer obs, int changeVal) {
+        observer = obs;
         this.changeVal = changeVal;
         this.setMaximum(MAXVAL);
         this.setValue(MAXVAL);
@@ -19,10 +20,6 @@ public class Vital extends JProgressBar {
 
     public int getVal() {
         return currVal;
-    }
-
-    public void setObserver(Observer obs) {
-        observer = obs;
     }
 
     public void constDecrease() {

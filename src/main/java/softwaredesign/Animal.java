@@ -14,20 +14,15 @@ abstract class Animal implements Observer {
                            int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
         this.name = name;
         this.color = color;
-        this.hunger = new Vital(hungerDiffVal);
-        this.energy = new Vital(energyDiffVal);
-        this.mood = new Vital(moodDiffVal);
-        this.clean = new Vital(cleanDiffVal);
-
-        hunger.setObserver(this);
-        clean.setObserver(this);
-        energy.setObserver(this);
-        mood.setObserver(this);
+        this.hunger = new Vital(this, hungerDiffVal);
+        this.energy = new Vital(this, energyDiffVal);
+        this.mood = new Vital(this, moodDiffVal);
+        this.clean = new Vital(this, cleanDiffVal);
 
         decreaseAllVitals();
     }
 
-    public void notifyEmpty() {
+    public void notifyEmptyInc() {
         numEmptyVitals++;
 
         if (numEmptyVitals == MAXEMPTYVITALS) {
@@ -37,7 +32,7 @@ abstract class Animal implements Observer {
         }
     }
 
-    public void notifyNotEmpty() {
+    public void notifyEmptyDec() {
 
     }
 
