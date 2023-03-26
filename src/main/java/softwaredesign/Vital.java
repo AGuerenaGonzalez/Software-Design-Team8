@@ -5,7 +5,7 @@ import javax.swing.plaf.InternalFrameUI;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
-    private final int WAITMILSEC = 2000;
+    private final int WAITMILSEC = 5000;
     private int currVal = 100, changeVal;
     private boolean isEmpty = false;
     private Observer observer = null;
