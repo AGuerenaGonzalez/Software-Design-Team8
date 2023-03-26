@@ -32,7 +32,7 @@ public class Vital extends JProgressBar {
                 if (newVal <= MINVAL) {
                     currVal = MINVAL;
                     if (!isEmpty && observer != null)
-                        observer.notifyEmpty();
+                        observer.notifyEmptyInc();
                     isEmpty = true;
                 } else {
                     currVal = newVal;
