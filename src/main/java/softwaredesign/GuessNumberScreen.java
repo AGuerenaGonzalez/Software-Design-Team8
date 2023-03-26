@@ -15,6 +15,7 @@ public class GuessNumberScreen extends MinigameScreen{
         addTitle();
         addMinigameName();
         addMinigamePanel();
+        addBehaviorButtons();
     }
 
     void addMinigameName(){
@@ -48,6 +49,28 @@ public class GuessNumberScreen extends MinigameScreen{
         this.add(minigamePanel);
     }
 
+    private void addBehaviorButtons(){
+        JButton playAgainButton, returnButton;
+
+        playAgainButton = new JButton();
+        addButton(playAgainButton, 160, 30, 100, 100, new Color(0xBEE0F8));
+        playAgainButton.setName("playAgainButton");
+        playAgainButton.setText("Play Again");
+
+        returnButton = new JButton();
+        addButton(returnButton, 290, 30, 100, 100, new Color(0xBEE0F8));
+        returnButton.setName("returnButton");
+        returnButton.setText("Main Screen");
+
+        JPanel actionsPanel = new JPanel();
+        actionsPanel.setLayout(null);
+        actionsPanel.setBounds(0,600,AppConstants.WIDTH, 200);
+        actionsPanel.add(playAgainButton);
+        actionsPanel.add(returnButton);
+
+        this.add(actionsPanel);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
@@ -67,6 +90,8 @@ public class GuessNumberScreen extends MinigameScreen{
                 }
                 JOptionPane.showMessageDialog(null, answer, "GuessTheNumber", JOptionPane.INFORMATION_MESSAGE);
                 break;
+            case "returnButton":
+                Tamagotchi.switchScreen("returnButton");
         }
     }
 }
