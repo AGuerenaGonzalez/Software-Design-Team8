@@ -16,6 +16,7 @@ public class PetActionScreen extends Screen {
         addVitals();
         addPetImg();
         addBehaviorButtons();
+        addPetName();
     }
 
     private void addVitals() {
@@ -54,7 +55,7 @@ public class PetActionScreen extends Screen {
         cleanBar.setStringPainted(true);
 
         JPanel vitalsPanel = new JPanel();
-        vitalsPanel.setBounds(0,100,AppConstants.WIDTH, 100);
+        vitalsPanel.setBounds(0,100,AppConstants.WIDTH, 65);
         vitalsPanel.setLayout(null);
         vitalsPanel.add(hungerBar);
         vitalsPanel.add(hungerIcon);
@@ -66,6 +67,16 @@ public class PetActionScreen extends Screen {
         vitalsPanel.add(energyIcon);
 
         this.add(vitalsPanel);
+    }
+
+    private void addPetName() {
+        JLabel name = new JLabel(Tamagotchi.getPet().name);
+        name.setFont(new Font("Calibri", Font.PLAIN, 30));
+        JPanel petNamePanel = new JPanel();
+        petNamePanel.setBounds(0,165, AppConstants.WIDTH, 35);
+        petNamePanel.add(name);
+
+        this.add(petNamePanel);
     }
 
     private void addTitle(){
