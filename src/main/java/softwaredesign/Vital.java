@@ -1,12 +1,11 @@
 package softwaredesign;
 
 import javax.swing.*;
-import javax.swing.plaf.InternalFrameUI;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
     private final int WAITMILSEC = 5000;
-    private int currVal = 100, changeVal;
+    private final int changeVal;
     private boolean isEmpty = false;
     private Observer observer = null;
 
@@ -18,48 +17,49 @@ public class Vital extends JProgressBar {
         this.setMinimum(MINVAL);
     }
 
-    public int getVal() {
-        return currVal;
-    }
-
     public void constDecrease() {
+
         try {
             Thread.sleep(WAITMILSEC);
 
             while (true) {
+                int currVal = this.getValue();
                 int newVal = currVal - changeVal;
 
                 if (newVal <= MINVAL) {
-                    currVal = MINVAL;
+                    newVal = MINVAL;
                     if (!isEmpty && observer != null)
                         observer.notifyEmptyInc();
                     isEmpty = true;
-                } else {
-                    currVal = newVal;
                 }
-                setValue(currVal);
+
+                this.setValue(newVal);
                 Thread.sleep(WAITMILSEC);
             }
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Interupt exception");
         }
 
     }
 
     public void increase() {
-        int newVal = currVal + changeVal;
+        increase(1);
+    }
+
+    public void increase(double ratio) {
+        int currVal = this.getValue();
+        System.out.println("Currval was: " + currVal);
+        int incVal = (int) (ratio * changeVal);
+        int newVal = currVal + incVal;
 
         if (isEmpty) {
             isEmpty = false;
-            currVal = newVal;
-        }
-        if (newVal >= MAXVAL)
-            currVal = MAXVAL;
-        else {
-            if (isEmpty)
-                isEmpty = false;
-            currVal = newVal;
-        }
+        } else if (newVal > MAXVAL)
+            newVal = MAXVAL;
+
+        System.out.println("    Currval is: " + newVal);
+        this.setValue(newVal);
     }
+
 
 }

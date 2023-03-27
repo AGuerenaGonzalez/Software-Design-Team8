@@ -9,7 +9,7 @@ public class Tamagotchi extends JFrame {
     private static final JPanel PANELSWITCHER = new JPanel();
     private static Animal pet = null;
 
-    private Tamagotchi(){
+    private Tamagotchi() {
         this.setTitle("Tamagotchi");
         this.setSize(AppConstants.WIDTH, AppConstants.HEIGHT);
         this.setResizable(false);
@@ -25,20 +25,15 @@ public class Tamagotchi extends JFrame {
 
     }
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         System.out.println("Welcome to Software Design");
 
         new Tamagotchi();
 
     }
 
-    /*
-    TODO:
-    Change buttonName to screenName
-     */
-
     public static void switchScreen(String screenName) {
-        switch(screenName){
+        switch (screenName) {
             case "GuessNumberScreen":
                 GuessNumberScreen guessNumber = new GuessNumberScreen(pet);
                 PANELSWITCHER.add(guessNumber, "GuessNumberScreen");
@@ -55,11 +50,12 @@ public class Tamagotchi extends JFrame {
         }
         CL.show(PANELSWITCHER, screenName);
     }
-    public static Animal getPet(){
+
+    public static Animal getPet() {
         return pet;
     }
 
-    public static void setPet(Animal p){
+    public static void setPet(Animal p) {
         pet = p;
     }
 }
