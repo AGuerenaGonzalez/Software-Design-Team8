@@ -21,29 +21,49 @@ public class PetActionScreen extends Screen {
     private void addVitals() {
         Animal pet = Tamagotchi.getPet();
 
+        JLabel hungerIcon = new JLabel();
+        ImageIcon hungerIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"), 24, 24);
+        hungerIcon.setIcon(hungerIconImg);
+        hungerIcon.setBounds(30, 0,24, 24);
         Vital hungerBar = pet.getHungerVital();
-        hungerBar.setBounds(85,0,180,20);
+        hungerBar.setBounds(60,0,180,25);
         hungerBar.setStringPainted(true);
 
+        JLabel energyIcon = new JLabel();
+        ImageIcon energyIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/energy.png"), 24, 24);
+        energyIcon.setIcon(energyIconImg);
+        energyIcon.setBounds(280, 0,24, 24);
         Vital energyBar = pet.getEnergyVital();
-        energyBar.setBounds(285,0,180,20);
+        energyBar.setBounds(310,0,180,25);
         energyBar.setStringPainted(true);
 
+        JLabel moodIcon = new JLabel();
+        ImageIcon moodIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/mood.png"), 24, 24);
+        moodIcon.setIcon(moodIconImg);
+        moodIcon.setBounds(30, 40,24, 24);
         Vital moodBar = pet.getMoodVital();
-        moodBar.setBounds(85,40,180,20);
+        moodBar.setBounds(60,40,180,25);
         moodBar.setStringPainted(true);
 
+        JLabel cleanIcon = new JLabel();
+        ImageIcon cleanIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/cleanliness.png"), 24, 24);
+        cleanIcon.setIcon(cleanIconImg);
+        cleanIcon.setBounds(280, 40,24, 24);
         Vital cleanBar = pet.getCleanVital();
-        cleanBar.setBounds(285,40,180,20);
+        cleanBar.setBounds(310,40,180,25);
         cleanBar.setStringPainted(true);
 
         JPanel vitalsPanel = new JPanel();
         vitalsPanel.setBounds(0,100,AppConstants.WIDTH, 100);
         vitalsPanel.setLayout(null);
         vitalsPanel.add(hungerBar);
+        vitalsPanel.add(hungerIcon);
         vitalsPanel.add(cleanBar);
+        vitalsPanel.add(cleanIcon);
         vitalsPanel.add(moodBar);
+        vitalsPanel.add(moodIcon);
         vitalsPanel.add(energyBar);
+        vitalsPanel.add(energyIcon);
 
         this.add(vitalsPanel);
     }

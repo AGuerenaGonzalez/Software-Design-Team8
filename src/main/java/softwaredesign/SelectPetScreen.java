@@ -80,7 +80,6 @@ public class SelectPetScreen extends Screen{
         colorChoices.add(black);
         colorChoices.add(brown);
 
-
         JPanel radioPanel = new JPanel();
         radioPanel.setBounds(0,200,AppConstants.WIDTH, 140);
         radioPanel.setLayout(null);
@@ -92,7 +91,6 @@ public class SelectPetScreen extends Screen{
         radioPanel.add(black);
         radioPanel.add(hamster);
         radioPanel.add(brown);
-        //radioPanel.setBackground(Color.gray);
 
         this.add(radioPanel);
     }
