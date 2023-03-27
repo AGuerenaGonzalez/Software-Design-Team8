@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
-    private final int WAITMILSEC = 5000;
+    private final int INTERVALTIME = 5000;
     private final int changeVal;
     private boolean isEmpty = false;
     private Observer observer = null;
@@ -20,7 +20,7 @@ public class Vital extends JProgressBar {
     public void constDecrease() {
 
         try {
-            Thread.sleep(WAITMILSEC);
+            Thread.sleep(INTERVALTIME);
 
             while (true) {
                 int currVal = this.getValue();
@@ -34,7 +34,7 @@ public class Vital extends JProgressBar {
                 }
 
                 this.setValue(newVal);
-                Thread.sleep(WAITMILSEC);
+                Thread.sleep(INTERVALTIME);
             }
         } catch (InterruptedException e) {
             System.out.println("Interupt exception");
