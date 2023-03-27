@@ -1,4 +1,5 @@
 package softwaredesign;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,9 +11,10 @@ import java.util.Objects;
 
 public class PetActionScreen extends Screen {
     int CHANGETHISSSSSS = 4;
+
     PetActionScreen() {
         this.setLayout(null);
-        addTitle();
+        addBanner();
         addVitals();
         addPetImg();
         addBehaviorButtons();
@@ -22,23 +24,23 @@ public class PetActionScreen extends Screen {
         Animal pet = Tamagotchi.getPet();
 
         Vital hungerBar = pet.getHungerVital();
-        hungerBar.setBounds(85,0,180,20);
+        hungerBar.setBounds(85, 0, 180, 20);
         hungerBar.setStringPainted(true);
 
         Vital energyBar = pet.getEnergyVital();
-        energyBar.setBounds(285,0,180,20);
+        energyBar.setBounds(285, 0, 180, 20);
         energyBar.setStringPainted(true);
 
         Vital moodBar = pet.getMoodVital();
-        moodBar.setBounds(85,40,180,20);
+        moodBar.setBounds(85, 40, 180, 20);
         moodBar.setStringPainted(true);
 
         Vital cleanBar = pet.getCleanVital();
-        cleanBar.setBounds(285,40,180,20);
+        cleanBar.setBounds(285, 40, 180, 20);
         cleanBar.setStringPainted(true);
 
         JPanel vitalsPanel = new JPanel();
-        vitalsPanel.setBounds(0,100,AppConstants.WIDTH, 100);
+        vitalsPanel.setBounds(0, 100, AppConstants.WIDTH, 100);
         vitalsPanel.setLayout(null);
         vitalsPanel.add(hungerBar);
         vitalsPanel.add(cleanBar);
@@ -48,25 +50,12 @@ public class PetActionScreen extends Screen {
         this.add(vitalsPanel);
     }
 
-    private void addTitle(){
-        JLabel title = new JLabel();
-        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
-        title.setIcon(titleImg);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel tittlePanel = new JPanel();
-        tittlePanel.setBounds(0,0,AppConstants.WIDTH, 100);
-        tittlePanel.add(title);
-
-        this.add(tittlePanel);
-    }
-    private void addPetImg(){
+    private void addPetImg() {
         Animal pet = Tamagotchi.getPet();
         JLabel petLabel = new JLabel();
         ImageIcon petIMG = null;
-        if(pet instanceof Cat) {
-            switch(pet.color) {
+        if (pet instanceof Cat) {
+            switch (pet.color) {
                 case "white":
                     petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteCat.png");
                     break;
@@ -81,9 +70,8 @@ public class PetActionScreen extends Screen {
                     break;
             }
 
-        }
-        else if (pet instanceof Dog) {
-            switch(pet.color) {
+        } else if (pet instanceof Dog) {
+            switch (pet.color) {
                 case "white":
                     petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteDog.png");
                     break;
@@ -97,9 +85,8 @@ public class PetActionScreen extends Screen {
                     petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
                     break;
             }
-        }
-        else if(pet instanceof Hamster) {
-            switch(pet.color) {
+        } else if (pet instanceof Hamster) {
+            switch (pet.color) {
                 case "white":
                     petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteHamster.png");
                     break;
@@ -118,12 +105,13 @@ public class PetActionScreen extends Screen {
         petLabel.setIcon(petIMG);
 
         JPanel petPanel = new JPanel();
-        petPanel.setBounds(0,200,AppConstants.WIDTH, 400);
+        petPanel.setBounds(0, 200, AppConstants.WIDTH, 400);
         petPanel.add(petLabel);
 
         this.add(petPanel);
     }
-    private void addBehaviorButtons(){
+
+    private void addBehaviorButtons() {
         JButton playButton, feedButton, sleepButton, cleanButton;
 
         playButton = new JButton();
@@ -148,7 +136,7 @@ public class PetActionScreen extends Screen {
 
         JPanel actionsPanel = new JPanel();
         actionsPanel.setLayout(null);
-        actionsPanel.setBounds(0,600,AppConstants.WIDTH, 200);
+        actionsPanel.setBounds(0, 600, AppConstants.WIDTH, 200);
         actionsPanel.add(playButton);
         actionsPanel.add(feedButton);
         actionsPanel.add(sleepButton);
@@ -161,17 +149,17 @@ public class PetActionScreen extends Screen {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         String buttonName = button.getName();
-        switch(buttonName){
+        switch (buttonName) {
             case "playButton":
 
                 System.out.println("Playing");
                 String[] responses = {"GuessTheNumber", "MemoryGame", "Cancel"};
                 int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "xd", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
                 System.out.println(answer);
-                if(answer == 0) {
+                if (answer == 0) {
                     Tamagotchi.switchScreen("guessNumberButton");
                 }
-                if(answer == 1) {
+                if (answer == 1) {
                     Tamagotchi.switchScreen("memoryGameButton");
                 }
                 break;

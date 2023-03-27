@@ -7,7 +7,7 @@ public class MemoryGameScreen extends MinigameScreen{
 
     public MemoryGameScreen(){
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        addTitle();
+        addBanner();
         addMinigameName();
     }
     void addMinigameName(){
