@@ -60,7 +60,7 @@ abstract class Animal implements Observer {
         return clean;
     }
 
-    public void play() {
+    public void played(boolean isGameWon) {
 //        moodLevel.increase();
         System.out.println("PLAYING");
     }
