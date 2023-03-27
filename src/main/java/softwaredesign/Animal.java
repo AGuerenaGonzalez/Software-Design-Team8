@@ -5,7 +5,7 @@ import javax.swing.*;
 abstract class Animal implements Observer {
 
     protected Vital hunger, energy, mood, clean;
-    protected String name;
+    private String name;
     private boolean isSleeping = false;
     private int numEmptyVitals = 0;
     private final int MAXEMPTYVITALS = 2;
@@ -14,7 +14,7 @@ abstract class Animal implements Observer {
     private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
 
     public Animal(String animalType, String name, String color, int cleanDiffVal,
-                           int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
+                  int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
         this.name = name;
         this.hunger = new Vital(this, hungerDiffVal);
         this.energy = new Vital(this, energyDiffVal);
@@ -25,7 +25,7 @@ abstract class Animal implements Observer {
         decreaseAllVitals();
     }
 
-    public ImageIcon getAnimalImg(){
+    public ImageIcon getAnimalImg() {
         return animalImg;
     }
 
@@ -61,23 +61,22 @@ abstract class Animal implements Observer {
     }
 
     public void played(boolean isGameWon) {
-//        moodLevel.increase();
-        System.out.println("PLAYING");
+        if (isGameWon)
+            mood.increase();
     }
 
     public void clean() {
-//        cleanLevel.increase();
-        System.out.println("CLEANING");
+        clean.increase();
     }
 
-    public void feed() {
-//        hungerLevel.increase();
-        System.out.println("FEEDING");
-    }
+    public abstract void feed(String food);
 
     public void sleep() {
-//        sleepLevel.increase();
-        System.out.println("SLEEPING");
+        energy.increase();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void decreaseAllVitals() {

@@ -1,8 +1,8 @@
 package softwaredesign;
 
 public class AnimalFactory {
-    public Animal getAnimal(String animalType, String name, String color){
-        switch (animalType){
+    public Animal getAnimal(String animalType, String name, String color) {
+        switch (animalType) {
             case "DOG":
                 return new Dog(name, color, 12, 16, 8, 16);
             case "CAT":

@@ -5,12 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
-
 public class PetActionScreen extends Screen {
-    int CHANGETHISSSSSS = 4;
     private Animal pet = null;
 
     PetActionScreen(Animal pet) {
@@ -101,27 +96,46 @@ public class PetActionScreen extends Screen {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         String buttonName = button.getName();
+
         switch (buttonName) {
             case "playButton":
                 System.out.println("Playing");
-                String[] responses = {"GuessTheNumber", "MemoryGame", "Cancel"};
-                int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
-                if (answer == 0) {
+                String[] gameOptions = {"GuessTheNumber", "MemoryGame", "Cancel"};
+                int gameChoice = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameOptions, 0);
+                if (gameChoice == 0) {
                     Tamagotchi.switchScreen("GuessNumberScreen");
                 }
-                if (answer == 1) {
+                if (gameChoice == 1) {
                     Tamagotchi.switchScreen("MemoryGameScreen");
                 }
                 break;
             case "feedButton":
                 System.out.println("Feeding");
+                ImageIcon dogFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/dogFood.png"), 45, 45);
+                ImageIcon catFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/catFood.png"), 45, 45);
+                ImageIcon hamsterFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/hamsterFood.png"), 45, 45);
+
+                ImageIcon[] foodOptions = {dogFood, catFood, hamsterFood};
+                int foodChoice = JOptionPane.showOptionDialog(null, "Choose a food to feed " + pet.getName(), "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, foodOptions, 0);
+                switch (foodChoice) {
+                    case 0:
+                        pet.feed("dogFood");
+                        break;
+                    case 1:
+                        pet.feed("catFood");
+                        break;
+                    case 2:
+                        pet.feed("hamsterFood");
+                        break;
+                }
                 break;
             case "sleepButton":
                 System.out.println("Sleeping");
-
+                pet.sleep();
                 break;
             case "cleanButton":
                 System.out.println("Cleaning");
+                pet.clean();
                 break;
         }
     }

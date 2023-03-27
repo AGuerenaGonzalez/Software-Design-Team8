@@ -4,10 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class SelectPetScreen extends Screen{
+public class SelectPetScreen extends Screen {
     private String currAnimal = null, currColor = null;
     private JTextField nameField;
-    public SelectPetScreen(){
+
+    public SelectPetScreen() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addBanner();
         addTitle();
@@ -19,7 +20,7 @@ public class SelectPetScreen extends Screen{
     private void addConfirmButton() {
         JButton confirmButton = new JButton("Confirm");
         confirmButton.setName("confirmButton");
-        addButton(confirmButton, 200,0,100,50, new Color(0xBEE0F8));
+        addButton(confirmButton, 200, 0, 100, 50, new Color(0xBEE0F8));
 
         JPanel confirmPanel = new JPanel();
         confirmPanel.setLayout(null);
@@ -70,8 +71,8 @@ public class SelectPetScreen extends Screen{
 
 
         JPanel radioPanel = new JPanel();
-        radioPanel.setBounds(0,200,AppConstants.WIDTH, 400);
-        radioPanel.setLayout(new GridLayout(4,2));
+        radioPanel.setBounds(0, 200, AppConstants.WIDTH, 400);
+        radioPanel.setLayout(new GridLayout(4, 2));
         radioPanel.add(animalLabel);
         radioPanel.add(colorLabel);
         radioPanel.add(dog);
@@ -90,7 +91,7 @@ public class SelectPetScreen extends Screen{
         title.setVerticalAlignment(JLabel.CENTER);
 
         JPanel tittlePanel = new JPanel();
-        tittlePanel.setBounds(0,0,AppConstants.WIDTH, 100);
+        tittlePanel.setBounds(0, 0, AppConstants.WIDTH, 100);
         tittlePanel.add(title);
 
         this.add(tittlePanel);
@@ -105,18 +106,18 @@ public class SelectPetScreen extends Screen{
     public void actionPerformed(ActionEvent e) {
         AbstractButton button;
         String buttonName;
-        if(e.getSource() instanceof JButton)
+        if (e.getSource() instanceof JButton)
             button = (JButton) e.getSource();
-        else if(e.getSource() instanceof JRadioButton)
+        else if (e.getSource() instanceof JRadioButton)
             button = (JRadioButton) e.getSource();
-        else{
+        else {
             System.out.println("Action performed error.");
             return;
         }
 
         buttonName = button.getName();
 
-        switch(buttonName){
+        switch (buttonName) {
             case "dogButton":
                 currAnimal = "DOG";
                 break;
@@ -138,7 +139,7 @@ public class SelectPetScreen extends Screen{
             case "confirmButton":
                 String currName = nameField.getText();
                 boolean validSelection = !currName.isEmpty() && currAnimal != null && currColor != null;
-                if(validSelection) {
+                if (validSelection) {
                     Tamagotchi.setPet(createPet(currAnimal, currColor, currName));
                     Tamagotchi.switchScreen("PetActionScreen");
                 }

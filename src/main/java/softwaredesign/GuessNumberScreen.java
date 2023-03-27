@@ -5,14 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 
-public class GuessNumberScreen extends MinigameScreen{
+public class GuessNumberScreen extends MinigameScreen {
 
     private JTextField numberField;
     private Random random = new Random();
     private int correctNumber = random.nextInt(100);
     private Animal pet = null;
 
-    GuessNumberScreen(Animal pet){
+    GuessNumberScreen(Animal pet) {
         this.pet = pet;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addBanner();
@@ -21,7 +21,7 @@ public class GuessNumberScreen extends MinigameScreen{
         addBehaviorButtons();
     }
 
-    void addMinigameName(){
+    void addMinigameName() {
         JLabel minigameName = new JLabel("GuessTheNumber");
 //        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/tittleGroup8.png"), 400, 71);
 //        title.setIcon(titleImg);
@@ -29,22 +29,22 @@ public class GuessNumberScreen extends MinigameScreen{
         minigameName.setVerticalAlignment(JLabel.CENTER);
 
         JPanel minigameNamePanel = new JPanel();
-        minigameNamePanel.setBounds(0,100,AppConstants.WIDTH, 100);
+        minigameNamePanel.setBounds(0, 100, AppConstants.WIDTH, 100);
         minigameNamePanel.add(minigameName);
 
         this.add(minigameNamePanel);
     }
 
-    private void addMinigamePanel(){
+    private void addMinigamePanel() {
         numberField = new JTextField(10);
         JLabel prompt = new JLabel("Enter number to guess here:");
         JButton guessButton = new JButton();
-        addButton(guessButton,100, 300, 50, 50, new Color(0xBEE0F8));
+        addButton(guessButton, 100, 300, 50, 50, new Color(0xBEE0F8));
         guessButton.setText("Guess!");
         guessButton.setName("guessName");
 
         JPanel minigamePanel = new JPanel();
-        minigamePanel.setBounds(0,200,AppConstants.WIDTH, 100);
+        minigamePanel.setBounds(0, 200, AppConstants.WIDTH, 100);
         minigamePanel.add(prompt);
         minigamePanel.add(numberField);
         minigamePanel.add(guessButton);
@@ -52,7 +52,7 @@ public class GuessNumberScreen extends MinigameScreen{
         this.add(minigamePanel);
     }
 
-    private void addBehaviorButtons(){
+    private void addBehaviorButtons() {
         JButton playAgainButton, returnButton;
 
         playAgainButton = new JButton();
@@ -67,7 +67,7 @@ public class GuessNumberScreen extends MinigameScreen{
 
         JPanel actionsPanel = new JPanel();
         actionsPanel.setLayout(null);
-        actionsPanel.setBounds(0,600,AppConstants.WIDTH, 200);
+        actionsPanel.setBounds(0, 600, AppConstants.WIDTH, 200);
         actionsPanel.add(playAgainButton);
         actionsPanel.add(returnButton);
 
@@ -78,17 +78,15 @@ public class GuessNumberScreen extends MinigameScreen{
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         String buttonName = button.getName();
-        switch(buttonName){
+        switch (buttonName) {
             case "guessName":
                 int guess = Integer.parseInt(numberField.getText());
                 String answer;
-                if(guess == correctNumber){
+                if (guess == correctNumber) {
                     answer = "Correct!";
-                }
-                else if(guess > correctNumber) {
+                } else if (guess > correctNumber) {
                     answer = "Lower";
-                }
-                else{
+                } else {
                     answer = "Higher";
                 }
                 JOptionPane.showMessageDialog(null, answer, "GuessTheNumber", JOptionPane.INFORMATION_MESSAGE);
