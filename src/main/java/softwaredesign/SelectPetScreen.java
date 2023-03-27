@@ -118,22 +118,22 @@ public class SelectPetScreen extends Screen{
 
         switch(buttonName){
             case "dogButton":
-                currAnimal = "dog";
+                currAnimal = "DOG";
                 break;
             case "catButton":
-                currAnimal = "cat";
+                currAnimal = "CAT";
                 break;
             case "hamsterButton":
-                currAnimal = "hamster";
+                currAnimal = "HAMSTER";
                 break;
             case "whiteButton":
-                currColor = "white";
+                currColor = "WHITE";
                 break;
             case "blackButton":
-                currColor = "black";
+                currColor = "BLACK";
                 break;
             case "brownButton":
-                currColor = "brown";
+                currColor = "BROWN";
                 break;
             case "confirmButton":
                 String currName = nameField.getText();
@@ -152,14 +152,6 @@ public class SelectPetScreen extends Screen{
      */
     private Animal createPet(String animal, String color, String name) {
         AnimalFactory animalFactory = new AnimalFactory();
-        switch(animal){
-            case "cat":
-                return animalFactory.getAnimal("CAT", name, color);
-            case "hamster":
-                return animalFactory.getAnimal("HAMSTER", name, color);
-            case "dog":
-            default:
-                return animalFactory.getAnimal("DOG", name, color);
-        }
+        return animalFactory.getAnimal(animal, name, color);
     }
 }

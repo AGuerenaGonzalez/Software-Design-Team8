@@ -53,55 +53,7 @@ public class PetActionScreen extends Screen {
     private void addPetImg() {
         Animal pet = Tamagotchi.getPet();
         JLabel petLabel = new JLabel();
-        ImageIcon petIMG = null;
-        if (pet instanceof Cat) {
-            switch (pet.color) {
-                case "white":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteCat.png");
-                    break;
-                case "black":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackCat.png");
-                    break;
-                case "brown":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownCat.png");
-                    break;
-                default:
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
-                    break;
-            }
-
-        } else if (pet instanceof Dog) {
-            switch (pet.color) {
-                case "white":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteDog.png");
-                    break;
-                case "black":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackDog.png");
-                    break;
-                case "brown":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownDog.png");
-                    break;
-                default:
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
-                    break;
-            }
-        } else if (pet instanceof Hamster) {
-            switch (pet.color) {
-                case "white":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteHamster.png");
-                    break;
-                case "black":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackHamster.png");
-                    break;
-                case "brown":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownHamster.png");
-                    break;
-                default:
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
-                    break;
-            }
-        }
-        petIMG = scaleImage(petIMG, 450, 450);
+        ImageIcon petIMG = scaleImage(pet.getAnimalImg(), 450, 450);
         petLabel.setIcon(petIMG);
 
         JPanel petPanel = new JPanel();
@@ -154,8 +106,7 @@ public class PetActionScreen extends Screen {
 
                 System.out.println("Playing");
                 String[] responses = {"GuessTheNumber", "MemoryGame", "Cancel"};
-                int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "xd", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
-                System.out.println(answer);
+                int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
                 if (answer == 0) {
                     Tamagotchi.switchScreen("guessNumberButton");
                 }

@@ -1,26 +1,34 @@
 package softwaredesign;
 
+import javax.swing.*;
+
 abstract class Animal implements Observer {
 
     protected Vital hunger, energy, mood, clean;
-    protected String name, color;
-    private boolean isAlive = true;
+    protected String name;
+    private boolean isSleeping = false;
     private int numEmptyVitals = 0;
     private final int MAXEMPTYVITALS = 2;
+    private ImageIcon animalImg;
 
     private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
 
-    public Animal(String name, String color, int cleanDiffVal,
+    public Animal(String animalType, String name, String color, int cleanDiffVal,
                            int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
         this.name = name;
-        this.color = color;
         this.hunger = new Vital(this, hungerDiffVal);
         this.energy = new Vital(this, energyDiffVal);
         this.mood = new Vital(this, moodDiffVal);
         this.clean = new Vital(this, cleanDiffVal);
+        this.animalImg = new ImageIcon(String.format("src/main/java/softwaredesign/IMGs/animalsImgs/%s%s.png", color, animalType));
 
         decreaseAllVitals();
     }
+
+    public ImageIcon getAnimalImg(){
+        return animalImg;
+    }
+
 
     public void notifyEmptyInc() {
         numEmptyVitals++;
