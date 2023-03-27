@@ -37,25 +37,23 @@ public class Tamagotchi extends JFrame {
     Change buttonName to screenName
      */
 
-    public static void switchScreen(String buttonName) {
-        switch(buttonName){
-            case "guessNumberButton":
+    public static void switchScreen(String screenName) {
+        switch(screenName){
+            case "GuessNumberScreen":
                 GuessNumberScreen guessNumber = new GuessNumberScreen();
-                PANELSWITCHER.add(guessNumber, "guessNumberScreen");
-                CL.show(PANELSWITCHER, "guessNumberScreen");
+                PANELSWITCHER.add(guessNumber, "GuessNumberScreen");
                 break;
-            case "memoryGameButton":
+            case "MemoryGameScreen":
                 MemoryGameScreen memoryGame = new MemoryGameScreen();
-                PANELSWITCHER.add(memoryGame, "memoryGameScreen");
-                CL.show(PANELSWITCHER, "memoryGameScreen");
+                PANELSWITCHER.add(memoryGame, "MemoryGameScreen");
                 break;
             case "returnButton":
-            case "confirmButton":
+            case "PetActionScreen":
                 PetActionScreen petAction = new PetActionScreen();
-                PANELSWITCHER.add(petAction, "petActionScreen");
-                CL.show(PANELSWITCHER, "petActionScreen");
+                PANELSWITCHER.add(petAction, "PetActionScreen");
                 break;
         }
+        CL.show(PANELSWITCHER, screenName);
     }
     public static Animal getPet(){
         return pet;

@@ -140,7 +140,7 @@ public class SelectPetScreen extends Screen{
                 boolean validSelection = !currName.isEmpty() && currAnimal != null && currColor != null;
                 if(validSelection) {
                     Tamagotchi.setPet(createPet(currAnimal, currColor, currName));
-                    Tamagotchi.switchScreen(buttonName);
+                    Tamagotchi.switchScreen("PetActionScreen");
                 }
                 break;
         }
