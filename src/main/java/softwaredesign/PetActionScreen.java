@@ -11,8 +11,10 @@ import java.util.Objects;
 
 public class PetActionScreen extends Screen {
     int CHANGETHISSSSSS = 4;
+    private Animal pet = null;
 
-    PetActionScreen() {
+    PetActionScreen(Animal pet) {
+        this.pet = pet;
         this.setLayout(null);
         addBanner();
         addVitals();
@@ -21,7 +23,6 @@ public class PetActionScreen extends Screen {
     }
 
     private void addVitals() {
-        Animal pet = Tamagotchi.getPet();
 
         Vital hungerBar = pet.getHungerVital();
         hungerBar.setBounds(85, 0, 180, 20);
@@ -51,7 +52,6 @@ public class PetActionScreen extends Screen {
     }
 
     private void addPetImg() {
-        Animal pet = Tamagotchi.getPet();
         JLabel petLabel = new JLabel();
         ImageIcon petIMG = scaleImage(pet.getAnimalImg(), 450, 450);
         petLabel.setIcon(petIMG);
@@ -103,7 +103,6 @@ public class PetActionScreen extends Screen {
         String buttonName = button.getName();
         switch (buttonName) {
             case "playButton":
-
                 System.out.println("Playing");
                 String[] responses = {"GuessTheNumber", "MemoryGame", "Cancel"};
                 int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
@@ -119,6 +118,7 @@ public class PetActionScreen extends Screen {
                 break;
             case "sleepButton":
                 System.out.println("Sleeping");
+
                 break;
             case "cleanButton":
                 System.out.println("Cleaning");

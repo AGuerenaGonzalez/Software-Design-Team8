@@ -10,7 +10,10 @@ public class GuessNumberScreen extends MinigameScreen{
     private JTextField numberField;
     private Random random = new Random();
     private int correctNumber = random.nextInt(100);
-    GuessNumberScreen(){
+    private Animal pet = null;
+
+    GuessNumberScreen(Animal pet){
+        this.pet = pet;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addBanner();
         addMinigameName();
