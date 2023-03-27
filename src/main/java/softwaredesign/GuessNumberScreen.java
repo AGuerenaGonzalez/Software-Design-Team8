@@ -12,7 +12,7 @@ public class GuessNumberScreen extends MinigameScreen{
     private int correctNumber = random.nextInt(100);
     GuessNumberScreen(){
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        addTitle();
+        addBanner();
         addMinigameName();
         addMinigamePanel();
         addBehaviorButtons();

@@ -9,6 +9,7 @@ public class SelectPetScreen extends Screen{
     private JTextField nameField;
     public SelectPetScreen(){
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        addBanner();
         addTitle();
         addPetOptions();
         addNamePrompt();
