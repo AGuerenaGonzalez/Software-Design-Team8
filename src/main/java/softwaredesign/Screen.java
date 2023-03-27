@@ -30,5 +30,8 @@ abstract class Screen extends JPanel implements ActionListener {
         button.setFocusable(false);
         button.setBackground(backgroundColor);
         button.setBorder(BorderFactory.createCompoundBorder());
+        button.setFont(new Font("Calibri", Font.BOLD, 25));
+        button.setVerticalAlignment(JLabel.CENTER);
+        button.setHorizontalAlignment(JLabel.CENTER);
     }
 }
