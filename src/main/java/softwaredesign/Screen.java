@@ -10,11 +10,6 @@ abstract class Screen extends JPanel implements ActionListener {
         return new ImageIcon(img.getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
 
-     /*
-     TODO:
-     remove this method or change it to set or something
-      */
-
     protected void addBanner() {
         JLabel title = new JLabel();
         ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);

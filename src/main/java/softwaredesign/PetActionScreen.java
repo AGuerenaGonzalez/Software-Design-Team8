@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class PetActionScreen extends Screen {
     private Animal pet = null;
+    private JButton playButton, feedButton, sleepButton, cleanButton;
 
     PetActionScreen(Animal pet) {
         this.pet = pet;
@@ -59,7 +60,6 @@ public class PetActionScreen extends Screen {
     }
 
     private void addBehaviorButtons() {
-        JButton playButton, feedButton, sleepButton, cleanButton;
 
         playButton = new JButton();
         addButton(playButton, 30, 30, 100, 100, new Color(0xBEE0F8));
@@ -132,11 +132,39 @@ public class PetActionScreen extends Screen {
             case "sleepButton":
                 System.out.println("Sleeping");
                 pet.sleep();
+
+                Thread sleepingThread = new Thread( new Runnable() {
+                    public void run() {
+                        toggleBehaviors(false, Color.lightGray);
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException ex) {
+
+                        }
+                        toggleBehaviors(true, new Color(0xBEE0F8));
+                    }
+                });
+
+                sleepingThread.start();
+
                 break;
             case "cleanButton":
                 System.out.println("Cleaning");
                 pet.clean();
                 break;
         }
+    }
+
+    private void toggleBehaviors(boolean isClickable, Color color) {
+        playButton.setBackground(color);
+        feedButton.setBackground(color);
+        sleepButton.setBackground(color);
+        cleanButton.setBackground(color);
+        this.repaint();
+
+        playButton.setEnabled(isClickable);
+        feedButton.setEnabled(isClickable);
+        sleepButton.setEnabled(isClickable);
+        cleanButton.setEnabled(isClickable);
     }
 }
