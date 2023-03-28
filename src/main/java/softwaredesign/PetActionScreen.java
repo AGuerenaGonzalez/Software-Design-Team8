@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class PetActionScreen extends Screen {
     private Animal pet = null;
     private JButton playButton, feedButton, sleepButton, cleanButton;
+    private JLabel hungerIncreasePrompt, energyIncreasePrompt, moodIncreasePrompt, cleanIncreasePrompt;
 
     PetActionScreen(Animal pet) {
         this.pet = pet;
@@ -18,43 +19,38 @@ public class PetActionScreen extends Screen {
         addBehaviorButtons();
         addPetName();
     }
-
+    private void placeVital(int x, int y, Vital vital, JLabel increasePrompt, JLabel vitalIcon) {
+        vitalIcon.setBounds(x, y, 24, 24);
+        vital.setBounds(x + 30, y, 180, 25);
+        vital.setStringPainted(true);
+        increasePrompt.setFont(new Font("Calibri", Font.BOLD, 18));
+        increasePrompt.setBounds(x + 215,y,35,25);
+        increasePrompt.setForeground(Color.green);
+    }
     private void addVitals() {
-
-        JLabel hungerIcon = new JLabel();
-        ImageIcon hungerIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"), 24, 24);
-        hungerIcon.setIcon(hungerIconImg);
-        hungerIcon.setBounds(30, 0,24, 24);
+        JLabel hungerIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"));
         Vital hungerBar = pet.getHungerVital();
-        hungerBar.setBounds(60,0,180,25);
-        hungerBar.setStringPainted(true);
+        hungerIncreasePrompt = new JLabel();
 
-        JLabel energyIcon = new JLabel();
-        ImageIcon energyIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/energy.png"), 24, 24);
-        energyIcon.setIcon(energyIconImg);
-        energyIcon.setBounds(280, 0,24, 24);
+        JLabel energyIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/energy.png"));
         Vital energyBar = pet.getEnergyVital();
-        energyBar.setBounds(310,0,180,25);
-        energyBar.setStringPainted(true);
+        energyIncreasePrompt = new JLabel();
 
-        JLabel moodIcon = new JLabel();
-        ImageIcon moodIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/mood.png"), 24, 24);
-        moodIcon.setIcon(moodIconImg);
-        moodIcon.setBounds(30, 40,24, 24);
+        JLabel moodIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/mood.png"));
         Vital moodBar = pet.getMoodVital();
-        moodBar.setBounds(60,40,180,25);
-        moodBar.setStringPainted(true);
+        moodIncreasePrompt = new JLabel();
 
-        JLabel cleanIcon = new JLabel();
-        ImageIcon cleanIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/cleanliness.png"), 24, 24);
-        cleanIcon.setIcon(cleanIconImg);
-        cleanIcon.setBounds(280, 40,24, 24);
+        JLabel cleanIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/cleanliness.png"));
         Vital cleanBar = pet.getCleanVital();
-        cleanBar.setBounds(310,40,180,25);
-        cleanBar.setStringPainted(true);
+        cleanIncreasePrompt = new JLabel();
+
+        placeVital(30, 0, hungerBar, hungerIncreasePrompt, hungerIcon);
+        placeVital(280, 0, energyBar, energyIncreasePrompt, energyIcon);
+        placeVital(30, 40, moodBar, moodIncreasePrompt, moodIcon);
+        placeVital(280, 40, cleanBar, cleanIncreasePrompt, cleanIcon);
 
         JPanel vitalsPanel = new JPanel();
-        vitalsPanel.setBounds(0,100,AppConstants.WIDTH, 65);
+        vitalsPanel.setBounds(0,135,AppConstants.WIDTH, 65);
         vitalsPanel.setLayout(null);
         vitalsPanel.add(hungerBar);
         vitalsPanel.add(hungerIcon);
@@ -64,6 +60,7 @@ public class PetActionScreen extends Screen {
         vitalsPanel.add(moodIcon);
         vitalsPanel.add(energyBar);
         vitalsPanel.add(energyIcon);
+        vitalsPanel.add(hungerIncreasePrompt);
 
         this.add(vitalsPanel);
     }
@@ -72,7 +69,7 @@ public class PetActionScreen extends Screen {
         JLabel name = new JLabel(pet.getName());
         name.setFont(new Font("Calibri", Font.PLAIN, 30));
         JPanel petNamePanel = new JPanel();
-        petNamePanel.setBounds(0,165, AppConstants.WIDTH, 35);
+        petNamePanel.setBounds(0,100, AppConstants.WIDTH, 35);
         petNamePanel.add(name);
 
         this.add(petNamePanel);
@@ -161,6 +158,7 @@ public class PetActionScreen extends Screen {
                 break;
             case "sleepButton":
                 System.out.println("Sleeping");
+                hungerIncreasePrompt.setText("+10");
                 pet.sleep();
 
                 Thread sleepingThread = new Thread( new Runnable() {

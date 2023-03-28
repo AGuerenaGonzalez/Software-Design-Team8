@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 
 public class SelectPetScreen extends Screen{
     private String currAnimal = null, currColor = null;
-    JLabel currPetLabel = null;
+    private JLabel currPetLabel = null;
     private JTextField nameField;
     public SelectPetScreen(){
         this.setLayout(null);
