@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class SelectPetScreen extends Screen{
+public class SelectPetScreen extends Screen {
     private String currAnimal = null, currColor = null;
     JLabel currPetLabel = null;
     private JTextField nameField;
@@ -187,40 +187,42 @@ public class SelectPetScreen extends Screen{
     public void actionPerformed(ActionEvent e) {
         AbstractButton button;
         String buttonName;
-        if(e.getSource() instanceof JButton)
+        if (e.getSource() instanceof JButton)
             button = (JButton) e.getSource();
-        else if(e.getSource() instanceof JRadioButton)
+        else if (e.getSource() instanceof JRadioButton)
             button = (JRadioButton) e.getSource();
-        else{
+        else {
             System.out.println("Action performed error.");
             return;
         }
+
         buttonName = button.getName();
-        switch(buttonName){
+
+        switch (buttonName) {
             case "dogButton":
-                currAnimal = "dog";
+                currAnimal = "DOG";
                 break;
             case "catButton":
-                currAnimal = "cat";
+                currAnimal = "CAT";
                 break;
             case "hamsterButton":
-                currAnimal = "hamster";
+                currAnimal = "HAMSTER";
                 break;
             case "whiteButton":
-                currColor = "white";
+                currColor = "WHITE";
                 break;
             case "blackButton":
-                currColor = "black";
+                currColor = "BLACK";
                 break;
             case "brownButton":
-                currColor = "brown";
+                currColor = "BROWN";
                 break;
             case "confirmButton":
                 String currName = nameField.getText();
                 boolean validSelection = !currName.isEmpty() && currAnimal != null && currColor != null;
-                if(validSelection) {
+                if (validSelection) {
                     Tamagotchi.setPet(createPet(currAnimal, currColor, currName));
-                    Tamagotchi.switchScreen(buttonName);
+                    Tamagotchi.switchScreen("PetActionScreen");
                 }
                 break;
         }
@@ -232,14 +234,6 @@ public class SelectPetScreen extends Screen{
      */
     private Animal createPet(String animal, String color, String name) {
         AnimalFactory animalFactory = new AnimalFactory();
-        switch(animal){
-            case "cat":
-                return animalFactory.getAnimal("CAT", name, color);
-            case "hamster":
-                return animalFactory.getAnimal("HAMSTER", name, color);
-            case "dog":
-            default:
-                return animalFactory.getAnimal("DOG", name, color);
-        }
+        return animalFactory.getAnimal(animal, name, color);
     }
 }

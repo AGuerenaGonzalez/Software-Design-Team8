@@ -9,7 +9,7 @@ public class Tamagotchi extends JFrame {
     private static final JPanel PANELSWITCHER = new JPanel();
     private static Animal pet = null;
 
-    private Tamagotchi(){
+    private Tamagotchi() {
         this.setTitle("Tamagotchi");
         this.setSize(AppConstants.WIDTH, AppConstants.HEIGHT);
         this.setResizable(false);
@@ -25,43 +25,37 @@ public class Tamagotchi extends JFrame {
 
     }
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         System.out.println("Welcome to Software Design");
 
         new Tamagotchi();
 
     }
 
-    /*
-    TODO:
-    Change buttonName to screenName
-     */
-
-    public static void switchScreen(String buttonName) {
-        switch(buttonName){
-            case "guessNumberButton":
-                GuessNumberScreen guessNumber = new GuessNumberScreen();
-                PANELSWITCHER.add(guessNumber, "guessNumberScreen");
-                CL.show(PANELSWITCHER, "guessNumberScreen");
+    public static void switchScreen(String screenName) {
+        switch (screenName) {
+            case "GuessNumberScreen":
+                GuessNumberScreen guessNumber = new GuessNumberScreen(pet);
+                PANELSWITCHER.add(guessNumber, "GuessNumberScreen");
                 break;
-            case "memoryGameButton":
-                MemoryGameScreen memoryGame = new MemoryGameScreen();
-                PANELSWITCHER.add(memoryGame, "memoryGameScreen");
-                CL.show(PANELSWITCHER, "memoryGameScreen");
+            case "MemoryGameScreen":
+                MemoryGameScreen memoryGame = new MemoryGameScreen(pet);
+                PANELSWITCHER.add(memoryGame, "MemoryGameScreen");
                 break;
             case "returnButton":
-            case "confirmButton":
-                PetActionScreen petAction = new PetActionScreen();
-                PANELSWITCHER.add(petAction, "petActionScreen");
-                CL.show(PANELSWITCHER, "petActionScreen");
+            case "PetActionScreen":
+                PetActionScreen petAction = new PetActionScreen(pet);
+                PANELSWITCHER.add(petAction, "PetActionScreen");
                 break;
         }
+        CL.show(PANELSWITCHER, screenName);
     }
-    public static Animal getPet(){
+
+    public static Animal getPet() {
         return pet;
     }
 
-    public static void setPet(Animal p){
+    public static void setPet(Animal p) {
         pet = p;
     }
 }
