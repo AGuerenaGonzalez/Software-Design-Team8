@@ -12,7 +12,7 @@ public class PetActionScreen extends Screen {
     PetActionScreen(Animal pet) {
         this.pet = pet;
         this.setLayout(null);
-        addTitle();
+        addBanner();
         addVitals();
         addPetImg();
         addBehaviorButtons();
@@ -42,7 +42,7 @@ public class PetActionScreen extends Screen {
         moodIcon.setIcon(moodIconImg);
         moodIcon.setBounds(30, 40,24, 24);
         Vital moodBar = pet.getMoodVital();
-        moodBar.setBounds(85,40,180,20);
+        moodBar.setBounds(60,40,180,25);
         moodBar.setStringPainted(true);
 
         JLabel cleanIcon = new JLabel();
@@ -69,27 +69,13 @@ public class PetActionScreen extends Screen {
     }
 
     private void addPetName() {
-        JLabel name = new JLabel(Tamagotchi.getPet().name);
+        JLabel name = new JLabel(pet.getName());
         name.setFont(new Font("Calibri", Font.PLAIN, 30));
         JPanel petNamePanel = new JPanel();
         petNamePanel.setBounds(0,165, AppConstants.WIDTH, 35);
         petNamePanel.add(name);
 
         this.add(petNamePanel);
-    }
-
-    private void addTitle(){
-        JLabel title = new JLabel();
-        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
-        title.setIcon(titleImg);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel tittlePanel = new JPanel();
-        tittlePanel.setBounds(0,0,AppConstants.WIDTH, 100);
-        tittlePanel.add(title);
-
-        this.add(tittlePanel);
     }
     private void addPetImg() {
         JLabel petLabel = new JLabel();

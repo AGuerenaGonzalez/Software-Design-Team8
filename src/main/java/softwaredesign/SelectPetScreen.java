@@ -10,36 +10,25 @@ public class SelectPetScreen extends Screen {
     private JTextField nameField;
     public SelectPetScreen(){
         this.setLayout(null);
-        addTitle();
+        addBanner();
         addPetOptions();
         addNamePrompt();
         addConfirmButton();
         addPetImgPanel();
     }
-    private void addTitle() {
-        JLabel title = new JLabel("Create a pet!");
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setVerticalAlignment(JLabel.CENTER);
-        title.setFont(new Font("Calibri", Font.BOLD, 40));
-        title.setBounds(0,100,AppConstants.WIDTH, 100);
-
-        JLabel titleIcon = new JLabel();
-        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
-        titleIcon.setBounds(0,0,AppConstants.WIDTH, 100);
-        titleIcon.setIcon(titleImg);
-        titleIcon.setHorizontalAlignment(JLabel.CENTER);
-        titleIcon.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel tittlePanel = new JPanel();
-        tittlePanel.setBounds(0,0,AppConstants.WIDTH, 200);
-        tittlePanel.setLayout(null);
-        tittlePanel.add(titleIcon);
-        tittlePanel.add(title);
-
-        this.add(tittlePanel);
-    }
-
     private void addPetOptions() {
+        JLabel prompt = new JLabel("Create a pet!");
+        prompt.setHorizontalAlignment(JLabel.CENTER);
+        prompt.setVerticalAlignment(JLabel.CENTER);
+        prompt.setFont(new Font("Calibri", Font.BOLD, 40));
+        prompt.setBounds(0,0,AppConstants.WIDTH, 100);
+
+        JPanel promptPanel = new JPanel();
+        promptPanel.setBounds(0,100,AppConstants.WIDTH, 100);
+        promptPanel.setLayout(null);
+        promptPanel.add(prompt);
+        this.add(promptPanel);
+
         JLabel animalLabel = new JLabel("Animal:");
         animalLabel.setBounds(0,0,AppConstants.WIDTH/2, 50);
         animalLabel.setFont(new Font("Calibri", Font.PLAIN, 25));
@@ -110,7 +99,6 @@ public class SelectPetScreen extends Screen {
         JButton confirmButton = new JButton("Confirm");
         confirmButton.setName("confirmButton");
         addButton(confirmButton, AppConstants.WIDTH/2 - 100,0,200,50, new Color(0xBEE0F8));
-        //paint
         JPanel confirmPanel = new JPanel();
         confirmPanel.setBounds(0, 700, AppConstants.WIDTH, 100);
         confirmPanel.setLayout(null);
@@ -134,41 +122,41 @@ public class SelectPetScreen extends Screen {
         {
             ImageIcon petIMG = null;
             switch (currAnimal) {
-                case "dog":
+                case "DOG":
                     switch(currColor) {
-                        case "white":
+                        case "WHITE":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteDog.png");
                             break;
-                        case "black":
+                        case "BLACK":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackDog.png");
                             break;
-                        case "brown":
+                        case "BROWN":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownDog.png");
                             break;
                     }
                     break;
-                case "cat":
+                case "CAT":
                     switch(currColor) {
-                        case "white":
+                        case "WHITE":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteCat.png");
                             break;
-                        case "black":
+                        case "BLACK":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackCat.png");
                             break;
-                        case "brown":
+                        case "BROWN":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownCat.png");
                             break;
                     }
                     break;
-                case "hamster":
+                case "HAMSTER":
                     switch(currColor) {
-                        case "white":
+                        case "WHITE":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteHamster.png");
                             break;
-                        case "black":
+                        case "BLACK":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackHamster.png");
                             break;
-                        case "brown":
+                        case "BROWN":
                             petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownHamster.png");
                             break;
                     }
