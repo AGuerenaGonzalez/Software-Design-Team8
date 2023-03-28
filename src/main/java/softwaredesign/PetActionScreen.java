@@ -1,18 +1,18 @@
 package softwaredesign;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
-
 public class PetActionScreen extends Screen {
-    int CHANGETHISSSSSS = 4;
-    PetActionScreen() {
+    private Animal pet = null;
+    private JButton playButton, feedButton, sleepButton, cleanButton;
+
+    PetActionScreen(Animal pet) {
+        this.pet = pet;
         this.setLayout(null);
-        addTitle();
+        addBanner();
         addVitals();
         addPetImg();
         addBehaviorButtons();
@@ -20,7 +20,6 @@ public class PetActionScreen extends Screen {
     }
 
     private void addVitals() {
-        Animal pet = Tamagotchi.getPet();
 
         JLabel hungerIcon = new JLabel();
         ImageIcon hungerIconImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"), 24, 24);
@@ -70,7 +69,7 @@ public class PetActionScreen extends Screen {
     }
 
     private void addPetName() {
-        JLabel name = new JLabel(Tamagotchi.getPet().name);
+        JLabel name = new JLabel(pet.getName());
         name.setFont(new Font("Calibri", Font.PLAIN, 30));
         JPanel petNamePanel = new JPanel();
         petNamePanel.setBounds(0,165, AppConstants.WIDTH, 35);
@@ -78,84 +77,19 @@ public class PetActionScreen extends Screen {
 
         this.add(petNamePanel);
     }
-
-    private void addTitle(){
-        JLabel title = new JLabel();
-        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
-        title.setIcon(titleImg);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel tittlePanel = new JPanel();
-        tittlePanel.setBounds(0,0,AppConstants.WIDTH, 100);
-        tittlePanel.add(title);
-
-        this.add(tittlePanel);
-    }
-    private void addPetImg(){
-        Animal pet = Tamagotchi.getPet();
+    private void addPetImg() {
         JLabel petLabel = new JLabel();
-        ImageIcon petIMG = null;
-        if(pet instanceof Cat) {
-            switch(pet.color) {
-                case "white":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteCat.png");
-                    break;
-                case "black":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackCat.png");
-                    break;
-                case "brown":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownCat.png");
-                    break;
-                default:
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
-                    break;
-            }
-
-        }
-        else if (pet instanceof Dog) {
-            switch(pet.color) {
-                case "white":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteDog.png");
-                    break;
-                case "black":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackDog.png");
-                    break;
-                case "brown":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownDog.png");
-                    break;
-                default:
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
-                    break;
-            }
-        }
-        else if(pet instanceof Hamster) {
-            switch(pet.color) {
-                case "white":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteHamster.png");
-                    break;
-                case "black":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackHamster.png");
-                    break;
-                case "brown":
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownHamster.png");
-                    break;
-                default:
-                    petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/dog.png");
-                    break;
-            }
-        }
-        petIMG = scaleImage(petIMG, 450, 450);
+        ImageIcon petIMG = scaleImage(pet.getAnimalImg(), 450, 450);
         petLabel.setIcon(petIMG);
 
         JPanel petPanel = new JPanel();
-        petPanel.setBounds(0,200,AppConstants.WIDTH, 400);
+        petPanel.setBounds(0, 200, AppConstants.WIDTH, 400);
         petPanel.add(petLabel);
 
         this.add(petPanel);
     }
-    private void addBehaviorButtons(){
-        JButton playButton, feedButton, sleepButton, cleanButton;
+
+    private void addBehaviorButtons() {
 
         playButton = new JButton();
         addButton(playButton, 30, 30, 100, 100, new Color(0xBEE0F8));
@@ -179,7 +113,7 @@ public class PetActionScreen extends Screen {
 
         JPanel actionsPanel = new JPanel();
         actionsPanel.setLayout(null);
-        actionsPanel.setBounds(0,600,AppConstants.WIDTH, 200);
+        actionsPanel.setBounds(0, 600, AppConstants.WIDTH, 200);
         actionsPanel.add(playButton);
         actionsPanel.add(feedButton);
         actionsPanel.add(sleepButton);
@@ -192,29 +126,75 @@ public class PetActionScreen extends Screen {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         String buttonName = button.getName();
-        switch(buttonName){
-            case "playButton":
 
+        switch (buttonName) {
+            case "playButton":
                 System.out.println("Playing");
-                String[] responses = {"GuessTheNumber", "MemoryGame", "Cancel"};
-                int answer = JOptionPane.showOptionDialog(null, "Choose a minigame", "xd", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, responses, 0);
-                System.out.println(answer);
-                if(answer == 0) {
-                    Tamagotchi.switchScreen("guessNumberButton");
+                String[] gameOptions = {"GuessTheNumber", "MemoryGame", "Cancel"};
+                int gameChoice = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameOptions, 0);
+                if (gameChoice == 0) {
+                    Tamagotchi.switchScreen("GuessNumberScreen");
                 }
-                if(answer == 1) {
-                    Tamagotchi.switchScreen("memoryGameButton");
+                if (gameChoice == 1) {
+                    Tamagotchi.switchScreen("MemoryGameScreen");
                 }
                 break;
             case "feedButton":
                 System.out.println("Feeding");
+                ImageIcon dogFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/dogFood.png"), 45, 45);
+                ImageIcon catFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/catFood.png"), 45, 45);
+                ImageIcon hamsterFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/hamsterFood.png"), 45, 45);
+
+                ImageIcon[] foodOptions = {dogFood, catFood, hamsterFood};
+                int foodChoice = JOptionPane.showOptionDialog(null, "Choose a food to feed " + pet.getName(), "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, foodOptions, 0);
+                switch (foodChoice) {
+                    case 0:
+                        pet.feed("dogFood");
+                        break;
+                    case 1:
+                        pet.feed("catFood");
+                        break;
+                    case 2:
+                        pet.feed("hamsterFood");
+                        break;
+                }
                 break;
             case "sleepButton":
                 System.out.println("Sleeping");
+                pet.sleep();
+
+                Thread sleepingThread = new Thread( new Runnable() {
+                    public void run() {
+                        toggleBehaviors(false, Color.lightGray);
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException ex) {
+
+                        }
+                        toggleBehaviors(true, new Color(0xBEE0F8));
+                    }
+                });
+
+                sleepingThread.start();
+
                 break;
             case "cleanButton":
                 System.out.println("Cleaning");
+                pet.clean();
                 break;
         }
+    }
+
+    private void toggleBehaviors(boolean isClickable, Color color) {
+        playButton.setBackground(color);
+        feedButton.setBackground(color);
+        sleepButton.setBackground(color);
+        cleanButton.setBackground(color);
+        this.repaint();
+
+        playButton.setEnabled(isClickable);
+        feedButton.setEnabled(isClickable);
+        sleepButton.setEnabled(isClickable);
+        cleanButton.setEnabled(isClickable);
     }
 }

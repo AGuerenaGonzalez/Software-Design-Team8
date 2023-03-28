@@ -12,6 +12,7 @@ abstract class Screen extends JPanel implements ActionListener {
 
     protected void addBanner() {
         JLabel title = new JLabel();
+        title.setBounds(0,0,AppConstants.WIDTH, 100);
         ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
         title.setIcon(titleImg);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -19,6 +20,7 @@ abstract class Screen extends JPanel implements ActionListener {
 
         JPanel tittlePanel = new JPanel();
         tittlePanel.setBounds(0, 0, AppConstants.WIDTH, 100);
+        tittlePanel.setLayout(null);
         tittlePanel.add(title);
 
         this.add(tittlePanel);
