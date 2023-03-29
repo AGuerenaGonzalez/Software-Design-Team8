@@ -6,7 +6,6 @@ abstract class Animal implements Observer {
 
     protected Vital hunger, energy, mood, clean;
     private String name;
-    private boolean isSleeping = false;
     private int numEmptyVitals = 0;
     private final int MAXEMPTYVITALS = 2;
     private ImageIcon animalImg;
@@ -24,6 +23,7 @@ abstract class Animal implements Observer {
 
         decreaseAllVitals();
     }
+
 
     public ImageIcon getAnimalImg() {
         return animalImg;
