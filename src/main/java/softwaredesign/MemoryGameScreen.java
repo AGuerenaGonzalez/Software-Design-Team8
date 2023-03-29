@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 public class MemoryGameScreen extends MinigameScreen {
     private Animal pet;
     JButton button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9;
+    JButton description;
 
     public MemoryGameScreen(Animal pet) {
         this.pet = pet;
@@ -14,6 +15,7 @@ public class MemoryGameScreen extends MinigameScreen {
         addBanner();
         addMinigameName();
         addMiniGamePanel();
+        addBehaviorButtons();
     }
 
     void addMinigameName() {
@@ -30,8 +32,9 @@ public class MemoryGameScreen extends MinigameScreen {
     }
 
     private void addMiniGamePanel() {
-        JLabel description = new JLabel("Sequence to remember: ");
-        description.setBounds(0, 0, AppConstants.WIDTH, 50);
+        description = new JButton("Display sequence to remember");
+        addButton(description, 125,0,300,50, new Color(0xBEE0F8));
+        description.setName("sequenceButton");
         button_1 = new JButton("1");
         button_2 = new JButton("2");
         button_3 = new JButton("3");
@@ -41,17 +44,17 @@ public class MemoryGameScreen extends MinigameScreen {
         button_7 = new JButton("7");
         button_8 = new JButton("8");
         button_9 = new JButton("9");
-        addButton(button_1, 100, 50, 100, 100, new Color(0xBEE0F8));
-        addButton(button_2, 225, 50, 100, 100, new Color(0xBEE0F8));
-        addButton(button_3, 350, 50, 100, 100, new Color(0xBEE0F8));
-        addButton(button_4, 100, 175, 100, 100, new Color(0xBEE0F8));
-        addButton(button_5, 225, 175, 100, 100, new Color(0xBEE0F8));
-        addButton(button_6, 350, 175, 100, 100, new Color(0xBEE0F8));
-        addButton(button_7, 100, 300, 100, 100, new Color(0xBEE0F8));
-        addButton(button_8, 225, 300, 100, 100, new Color(0xBEE0F8));
-        addButton(button_9, 350, 300, 100, 100, new Color(0xBEE0F8));
+        addButton(button_1, 100, 75, 100, 100, new Color(0xBEE0F8));
+        addButton(button_2, 225, 75, 100, 100, new Color(0xBEE0F8));
+        addButton(button_3, 350, 75, 100, 100, new Color(0xBEE0F8));
+        addButton(button_4, 100, 200, 100, 100, new Color(0xBEE0F8));
+        addButton(button_5, 225, 200, 100, 100, new Color(0xBEE0F8));
+        addButton(button_6, 350, 200, 100, 100, new Color(0xBEE0F8));
+        addButton(button_7, 100, 325, 100, 100, new Color(0xBEE0F8));
+        addButton(button_8, 225, 325, 100, 100, new Color(0xBEE0F8));
+        addButton(button_9, 350, 325, 100, 100, new Color(0xBEE0F8));
         JPanel miniGamePanel = new JPanel();
-        miniGamePanel.setBounds(0, 150, AppConstants.WIDTH, 400);
+        miniGamePanel.setBounds(0, 150, AppConstants.WIDTH, 450);
         miniGamePanel.setLayout(null);
         miniGamePanel.add(description);
         miniGamePanel.add(button_1);
@@ -68,6 +71,12 @@ public class MemoryGameScreen extends MinigameScreen {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        JButton button = (JButton) e.getSource();
+        String buttonName = button.getName();
+        switch (buttonName) {
+            case "sequenceButton":
+                description.setText("1 2 3 4 5 6 7 8 9");
+                break;
+        }
     }
 }
