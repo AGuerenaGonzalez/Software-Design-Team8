@@ -29,7 +29,6 @@ abstract class Animal implements Observer {
         return animalImg;
     }
 
-
     public void notifyEmptyInc() {
         numEmptyVitals++;
 
@@ -61,8 +60,10 @@ abstract class Animal implements Observer {
     }
 
     public void played(boolean isGameWon) {
-        if (isGameWon)
+        if (isGameWon) {
             mood.increase();
+        }
+
     }
 
     public void clean() {
