@@ -11,7 +11,7 @@ public class GuessNumberScreen extends MinigameScreen {
     private final Random random = new Random();
     private final int correctNumber = random.nextInt(100);
     private Animal pet = null;
-    private JButton returnButton, playAgainButton, guessButton;
+    private JButton guessButton;
 
     GuessNumberScreen(Animal pet) {
         this.pet = pet;
@@ -50,27 +50,6 @@ public class GuessNumberScreen extends MinigameScreen {
         minigamePanel.add(guessButton);
 
         this.add(minigamePanel);
-    }
-
-    private void addBehaviorButtons() {
-        playAgainButton = new JButton();
-        addButton(playAgainButton, 160, 30, 100, 100, new Color(0xBEE0F8));
-        playAgainButton.setName("playAgainButton");
-        playAgainButton.setText("Play Again");
-        playAgainButton.setEnabled(false);
-
-        returnButton = new JButton();
-        addButton(returnButton, 290, 30, 100, 100, new Color(0xBEE0F8));
-        returnButton.setName("returnButton");
-        returnButton.setText("Main Screen");
-
-        JPanel actionsPanel = new JPanel();
-        actionsPanel.setLayout(null);
-        actionsPanel.setBounds(0, 600, AppConstants.WIDTH, 200);
-        actionsPanel.add(playAgainButton);
-        actionsPanel.add(returnButton);
-
-        this.add(actionsPanel);
     }
 
     @Override
