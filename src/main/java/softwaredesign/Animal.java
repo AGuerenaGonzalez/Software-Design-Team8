@@ -83,7 +83,7 @@ abstract class Animal implements Observer {
         return name;
     }
 
-    public void decreaseAllVitals() {
+    private void decreaseAllVitals() {
 
         Thread hungerThread = new Thread(VITALTHREADS, new Runnable() {
             public void run() {
