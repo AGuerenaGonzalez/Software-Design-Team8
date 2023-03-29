@@ -5,20 +5,20 @@ import javax.swing.*;
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
     private final int INTERVALTIME = 5000;
-    private final int changeVal;
+    private final int CHANGEVAL;
     private boolean isEmpty = false;
     private Observer observer;
 
     public Vital(Observer obs, int changeVal) {
         observer = obs;
-        this.changeVal = changeVal;
+        this.CHANGEVAL = changeVal;
         this.setMaximum(MAXVAL);
         this.setValue(MAXVAL);
         this.setMinimum(MINVAL);
     }
     public void decrease(){
         int currVal = this.getValue();
-        int newVal = currVal - changeVal;
+        int newVal = currVal - CHANGEVAL;
 
         if (newVal <= MINVAL) {
             newVal = MINVAL;
@@ -51,7 +51,7 @@ public class Vital extends JProgressBar {
 
     public int increase(double ratio) {
         int currVal = this.getValue();
-        int incVal = (int) (ratio * changeVal);
+        int incVal = (int) (ratio * CHANGEVAL);
         int newVal = currVal + incVal;
 
         if (isEmpty) {
