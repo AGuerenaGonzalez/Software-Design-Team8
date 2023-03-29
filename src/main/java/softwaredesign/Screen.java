@@ -36,4 +36,12 @@ abstract class Screen extends JPanel implements ActionListener {
         button.setVerticalAlignment(JLabel.CENTER);
         button.setHorizontalAlignment(JLabel.CENTER);
     }
+    protected void placeVital(int x, int y, Vital vital, JLabel increasePrompt, JLabel vitalIcon) {
+        vitalIcon.setBounds(x, y, 24, 24);
+        vital.setBounds(x + 30, y, 180, 25);
+        vital.setStringPainted(true);
+        increasePrompt.setFont(new Font("Calibri", Font.BOLD, 18));
+        increasePrompt.setBounds(x + 215,y,35,25);
+        increasePrompt.setForeground(Color.green);
+    }
 }

@@ -8,9 +8,10 @@ import java.util.Random;
 public class GuessNumberScreen extends MinigameScreen {
 
     private JTextField numberField;
-    private Random random = new Random();
-    private int correctNumber = random.nextInt(100);
+    private final Random random = new Random();
+    private final int correctNumber = random.nextInt(100);
     private Animal pet = null;
+    private JButton returnButton, playAgainButton, guessButton;
 
     GuessNumberScreen(Animal pet) {
         this.pet = pet;
@@ -19,12 +20,11 @@ public class GuessNumberScreen extends MinigameScreen {
         addMinigameName();
         addMinigamePanel();
         addBehaviorButtons();
+        System.out.println(correctNumber);
     }
 
     void addMinigameName() {
         JLabel minigameName = new JLabel("GuessTheNumber");
-//        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/tittleGroup8.png"), 400, 71);
-//        title.setIcon(titleImg);
         minigameName.setHorizontalAlignment(JLabel.CENTER);
         minigameName.setVerticalAlignment(JLabel.CENTER);
 
@@ -38,7 +38,7 @@ public class GuessNumberScreen extends MinigameScreen {
     private void addMinigamePanel() {
         numberField = new JTextField(10);
         JLabel prompt = new JLabel("Enter number to guess here:");
-        JButton guessButton = new JButton();
+        guessButton = new JButton();
         addButton(guessButton, 100, 300, 50, 50, new Color(0xBEE0F8));
         guessButton.setText("Guess!");
         guessButton.setName("guessName");
@@ -53,12 +53,11 @@ public class GuessNumberScreen extends MinigameScreen {
     }
 
     private void addBehaviorButtons() {
-        JButton playAgainButton, returnButton;
-
         playAgainButton = new JButton();
         addButton(playAgainButton, 160, 30, 100, 100, new Color(0xBEE0F8));
         playAgainButton.setName("playAgainButton");
         playAgainButton.setText("Play Again");
+        playAgainButton.setEnabled(false);
 
         returnButton = new JButton();
         addButton(returnButton, 290, 30, 100, 100, new Color(0xBEE0F8));
@@ -84,6 +83,10 @@ public class GuessNumberScreen extends MinigameScreen {
                 String answer;
                 if (guess == correctNumber) {
                     answer = "Correct!";
+                    pet.played(true);
+                    playAgainButton.setEnabled(true);
+                    guessButton.setEnabled(false);
+
                 } else if (guess > correctNumber) {
                     answer = "Lower";
                 } else {
@@ -92,7 +95,11 @@ public class GuessNumberScreen extends MinigameScreen {
                 JOptionPane.showMessageDialog(null, answer, "GuessTheNumber", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case "returnButton":
-                Tamagotchi.switchScreen("returnButton");
+                Tamagotchi.switchScreen("PetActionScreen");
+                break;
+            case "playAgainButton":
+                Tamagotchi.switchScreen("GuessNumberScreen");
+                break;
         }
     }
 }

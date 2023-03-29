@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.ref.PhantomReference;
 
 public class PetActionScreen extends Screen {
     private Animal pet = null;
@@ -18,14 +19,6 @@ public class PetActionScreen extends Screen {
         addPetImg();
         addBehaviorButtons();
         addPetName();
-    }
-    private void placeVital(int x, int y, Vital vital, JLabel increasePrompt, JLabel vitalIcon) {
-        vitalIcon.setBounds(x, y, 24, 24);
-        vital.setBounds(x + 30, y, 180, 25);
-        vital.setStringPainted(true);
-        increasePrompt.setFont(new Font("Calibri", Font.BOLD, 18));
-        increasePrompt.setBounds(x + 215,y,35,25);
-        increasePrompt.setForeground(Color.green);
     }
     private void addVitals() {
         JLabel hungerIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"));
@@ -61,6 +54,9 @@ public class PetActionScreen extends Screen {
         vitalsPanel.add(energyBar);
         vitalsPanel.add(energyIcon);
         vitalsPanel.add(hungerIncreasePrompt);
+        vitalsPanel.add(energyIncreasePrompt);
+        vitalsPanel.add(moodIncreasePrompt);
+        vitalsPanel.add(cleanIncreasePrompt);
 
         this.add(vitalsPanel);
     }
@@ -119,6 +115,18 @@ public class PetActionScreen extends Screen {
         this.add(actionsPanel);
     }
 
+    private void promptIncreaseValue(JLabel vital, int value) {
+        vital.setText("+" + value);
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        vital.setText("");
+                    }
+                },
+                2000
+        );
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
@@ -131,6 +139,7 @@ public class PetActionScreen extends Screen {
                 int gameChoice = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameOptions, 0);
                 if (gameChoice == 0) {
                     Tamagotchi.switchScreen("GuessNumberScreen");
+                    System.out.println("test");
                 }
                 if (gameChoice == 1) {
                     Tamagotchi.switchScreen("MemoryGameScreen");
@@ -155,12 +164,11 @@ public class PetActionScreen extends Screen {
                         pet.feed("hamsterFood");
                         break;
                 }
+                promptIncreaseValue(hungerIncreasePrompt, 10);
                 break;
             case "sleepButton":
                 System.out.println("Sleeping");
-                hungerIncreasePrompt.setText("+10");
                 pet.sleep();
-
                 Thread sleepingThread = new Thread( new Runnable() {
                     public void run() {
                         toggleBehaviors(false, Color.lightGray);
@@ -172,13 +180,13 @@ public class PetActionScreen extends Screen {
                         toggleBehaviors(true, new Color(0xBEE0F8));
                     }
                 });
-
                 sleepingThread.start();
-
+                promptIncreaseValue(energyIncreasePrompt, 10);
                 break;
             case "cleanButton":
                 System.out.println("Cleaning");
                 pet.clean();
+                promptIncreaseValue(cleanIncreasePrompt, 10);
                 break;
         }
     }
