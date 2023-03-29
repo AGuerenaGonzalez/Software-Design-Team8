@@ -7,7 +7,7 @@ public class Vital extends JProgressBar {
     private final int INTERVALTIME = 5000;
     private final int changeVal;
     private boolean isEmpty = false;
-    private Observer observer = null;
+    private Observer observer;
 
     public Vital(Observer obs, int changeVal) {
         observer = obs;

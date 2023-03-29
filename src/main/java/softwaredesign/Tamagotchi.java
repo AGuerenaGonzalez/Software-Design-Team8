@@ -6,7 +6,7 @@ import java.awt.*;
 public class Tamagotchi extends JFrame {
     private static final CardLayout CL = new CardLayout();
     private static final JPanel PANELSWITCHER = new JPanel();
-    private static Animal pet = null;
+    private static Animal pet;
 
     private Tamagotchi() {
         this.setTitle("Tamagotchi");
