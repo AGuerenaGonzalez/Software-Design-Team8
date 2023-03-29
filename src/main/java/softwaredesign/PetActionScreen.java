@@ -152,22 +152,22 @@ public class PetActionScreen extends Screen {
 
                 ImageIcon[] foodOptions = {dogFood, catFood, hamsterFood};
                 int foodChoice = JOptionPane.showOptionDialog(null, "Choose a food to feed " + pet.getName(), "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, foodOptions, 0);
+                String foodName;
                 switch (foodChoice) {
                     case 0:
-                        pet.feed("dogFood");
+                        foodName = "dogFood";
                         break;
                     case 1:
-                        pet.feed("catFood");
+                        foodName = "catFood";
                         break;
                     case 2:
-                        pet.feed("hamsterFood");
+                    default:
+                        foodName = "hamsterFood";
                         break;
                 }
-                promptIncreaseValue(hungerIncreasePrompt, 10);
+                promptIncreaseValue(hungerIncreasePrompt, pet.feed(foodName));
                 break;
             case "sleepButton":
-                System.out.println("Sleeping");
-                pet.sleep();
 
                 toggleButton(playButton, false, Color.lightGray);
                 toggleButton(feedButton, false, Color.lightGray);
@@ -176,7 +176,7 @@ public class PetActionScreen extends Screen {
                 sleepButton.setName("wakeupButton");
                 sleepButton.setText("Wake Up");
 
-                promptIncreaseValue(energyIncreasePrompt, 10);
+                promptIncreaseValue(energyIncreasePrompt, pet.sleep());
                 break;
             case "wakeupButton":
                 toggleButton(playButton, true, new Color(0xBEE0F8));
@@ -187,9 +187,7 @@ public class PetActionScreen extends Screen {
                 sleepButton.setText("Sleep");
                 break;
             case "cleanButton":
-                System.out.println("Cleaning");
-                pet.clean();
-                promptIncreaseValue(cleanIncreasePrompt, 10);
+                promptIncreaseValue(cleanIncreasePrompt, pet.clean());
                 break;
         }
     }
