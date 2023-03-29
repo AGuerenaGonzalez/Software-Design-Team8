@@ -200,7 +200,6 @@ public class PetActionScreen extends Screen {
 
         playButton.setEnabled(isClickable);
         feedButton.setEnabled(isClickable);
-        sleepButton.setEnabled(isClickable);
         cleanButton.setEnabled(isClickable);
     }
 }
