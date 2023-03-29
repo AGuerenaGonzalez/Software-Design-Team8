@@ -199,12 +199,12 @@ public class PetActionScreen extends Screen {
         cleanButton.setEnabled(isClickable);
     }
 
-    private void placeVital(int x, int y, Vital vital, JLabel increasePrompt, JLabel vitalIcon) {
+    private void placeVital(int x, int y, Vital vital, JLabel incLabel, JLabel vitalIcon) {
         vitalIcon.setBounds(x, y, 24, 24);
         vital.setBounds(x + 30, y, 180, 25);
         vital.setStringPainted(true);
-        increasePrompt.setFont(new Font("Calibri", Font.BOLD, 18));
-        increasePrompt.setBounds(x + 215,y,35,25);
-        increasePrompt.setForeground(Color.green);
+        incLabel.setFont(new Font("Calibri", Font.BOLD, 18));
+        incLabel.setBounds(x + 215,y,35,25);
+        incLabel.setForeground(Color.green);
     }
 }
