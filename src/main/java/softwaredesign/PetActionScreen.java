@@ -133,20 +133,35 @@ public class PetActionScreen extends Screen {
                 System.out.println("Sleeping");
                 pet.sleep();
 
-                Thread sleepingThread = new Thread( new Runnable() {
-                    public void run() {
-                        toggleBehaviors(false, Color.lightGray);
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException ex) {
+                toggleButton(playButton, false, Color.lightGray);
+                toggleButton(feedButton, false, Color.lightGray);
+                toggleButton(cleanButton, false, Color.lightGray);
 
-                        }
-                        toggleBehaviors(true, new Color(0xBEE0F8));
-                    }
-                });
+                sleepButton.setName("wakeupButton");
+                sleepButton.setText("Wake Up");
 
-                sleepingThread.start();
+//                Thread sleepingThread = new Thread( new Runnable() {
+//                    public void run() {
+//                        toggleBehaviors(false, Color.lightGray);
+//                        try {
+//                            Thread.sleep(3000);
+//                        } catch (InterruptedException ex) {
+//
+//                        }
+//                        toggleBehaviors(true, new Color(0xBEE0F8));
+//                    }
+//                });
+//
+//                sleepingThread.start();
 
+                break;
+            case "wakeupButton":
+                toggleButton(playButton, true, new Color(0xBEE0F8));
+                toggleButton(feedButton, true, new Color(0xBEE0F8));
+                toggleButton(cleanButton, true, new Color(0xBEE0F8));
+
+                sleepButton.setName("sleepButton");
+                sleepButton.setText("Sleep");
                 break;
             case "cleanButton":
                 System.out.println("Cleaning");
@@ -155,16 +170,9 @@ public class PetActionScreen extends Screen {
         }
     }
 
-    private void toggleBehaviors(boolean isClickable, Color color) {
-        playButton.setBackground(color);
-        feedButton.setBackground(color);
-        sleepButton.setBackground(color);
-        cleanButton.setBackground(color);
-        this.repaint();
+    private void toggleButton(JButton button, boolean isClickable, Color color) {
+        button.setBackground(color);
+        button.setEnabled(isClickable);
 
-        playButton.setEnabled(isClickable);
-        feedButton.setEnabled(isClickable);
-        sleepButton.setEnabled(isClickable);
-        cleanButton.setEnabled(isClickable);
     }
 }
