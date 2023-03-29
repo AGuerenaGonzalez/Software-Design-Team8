@@ -49,7 +49,7 @@ public class Tamagotchi extends JFrame {
         CL.show(PANELSWITCHER, screenName);
     }
 
-    public static void setPet(Animal pet) {
-        this.pet = pet;
+    public static void setPet(Animal petInst) {
+        pet = petInst;
     }
 }
