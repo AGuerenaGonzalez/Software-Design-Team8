@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 
 public class SelectPetScreen extends Screen {
     private String currAnimal = null, currColor = null;
+    private ImageIcon currPetImg = null;
     private JLabel currPetLabel = null;
     private JTextField nameField;
     public SelectPetScreen(){
@@ -117,60 +118,16 @@ public class SelectPetScreen extends Screen {
         this.add(petPanel);
     }
 
-    private void updatePetImg() {
+    private void displayPetImg() {
         if(currAnimal != null && currColor != null)
         {
-            ImageIcon petIMG = null;
-            switch (currAnimal) {
-                case "DOG":
-                    switch(currColor) {
-                        case "WHITE":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteDog.png");
-                            break;
-                        case "BLACK":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackDog.png");
-                            break;
-                        case "BROWN":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownDog.png");
-                            break;
-                    }
-                    break;
-                case "CAT":
-                    switch(currColor) {
-                        case "WHITE":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteCat.png");
-                            break;
-                        case "BLACK":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackCat.png");
-                            break;
-                        case "BROWN":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownCat.png");
-                            break;
-                    }
-                    break;
-                case "HAMSTER":
-                    switch(currColor) {
-                        case "WHITE":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/whiteHamster.png");
-                            break;
-                        case "BLACK":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/blackHamster.png");
-                            break;
-                        case "BROWN":
-                            petIMG = new ImageIcon("src/main/java/softwaredesign/IMGs/animalsImgs/brownHamster.png");
-                            break;
-                    }
-                    break;
-            }
-            petIMG = scaleImage(petIMG, 300, 300);
+            currPetImg = new ImageIcon(String.format("src/main/java/softwaredesign/IMGs/animalsImgs/%s%s.png", currColor, currAnimal));
+            ImageIcon tempPetImg = scaleImage(currPetImg, 300, 300);;
 
-            currPetLabel.setIcon(petIMG);
+            currPetLabel.setIcon(tempPetImg);
         }
     }
-    /*
-    TODO:
-    Add exceptions
-     */
+
     @Override
     public void actionPerformed(ActionEvent e) {
         AbstractButton button;
@@ -188,40 +145,36 @@ public class SelectPetScreen extends Screen {
 
         switch (buttonName) {
             case "dogButton":
-                currAnimal = "DOG";
+                currAnimal = "Dog";
                 break;
             case "catButton":
-                currAnimal = "CAT";
+                currAnimal = "Cat";
                 break;
             case "hamsterButton":
-                currAnimal = "HAMSTER";
+                currAnimal = "Hamster";
                 break;
             case "whiteButton":
-                currColor = "WHITE";
+                currColor = "white";
                 break;
             case "blackButton":
-                currColor = "BLACK";
+                currColor = "black";
                 break;
             case "brownButton":
-                currColor = "BROWN";
+                currColor = "brown";
                 break;
             case "confirmButton":
                 String currName = nameField.getText();
                 boolean validSelection = !currName.isEmpty() && currAnimal != null && currColor != null;
                 if (validSelection) {
-                    Tamagotchi.setPet(createPet(currAnimal, currColor, currName));
+                    Tamagotchi.setPet(createPet(currAnimal, currName, currPetImg));
                     Tamagotchi.switchScreen("PetActionScreen");
                 }
                 break;
         }
-        updatePetImg();
+        displayPetImg();
     }
-    /*
-    TODO:
-    Add exceptions
-     */
-    private Animal createPet(String animal, String color, String name) {
+    private Animal createPet(String animal, String name, ImageIcon img) {
         AnimalFactory animalFactory = new AnimalFactory();
-        return animalFactory.getAnimal(animal, name, color);
+        return animalFactory.getAnimal(animal, name, img);
     }
 }

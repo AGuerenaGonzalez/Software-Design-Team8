@@ -51,16 +51,15 @@ public class Vital extends JProgressBar {
 
     public int increase(double ratio) {
         int currVal = this.getValue();
-        System.out.println("Currval was: " + currVal);
         int incVal = (int) (ratio * changeVal);
         int newVal = currVal + incVal;
 
         if (isEmpty) {
             isEmpty = false;
+            observer.notifyEmptyDec();
         } else if (newVal > MAXVAL)
             newVal = MAXVAL;
 
-        System.out.println("    Currval is: " + newVal);
         this.setValue(newVal);
 
         return incVal;

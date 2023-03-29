@@ -2,7 +2,6 @@ package softwaredesign;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Tamagotchi extends JFrame {
     private static final CardLayout CL = new CardLayout();
@@ -25,7 +24,7 @@ public class Tamagotchi extends JFrame {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("Welcome to Software Design");
 
         new Tamagotchi();
@@ -48,10 +47,6 @@ public class Tamagotchi extends JFrame {
                 break;
         }
         CL.show(PANELSWITCHER, screenName);
-    }
-
-    public static Animal getPet() {
-        return pet;
     }
 
     public static void setPet(Animal p) {

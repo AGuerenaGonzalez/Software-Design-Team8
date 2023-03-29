@@ -3,13 +3,11 @@ package softwaredesign;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.ref.PhantomReference;
 
 public class PetActionScreen extends Screen {
-    private Animal pet = null;
+    private final Animal pet;
     private JButton playButton, feedButton, sleepButton, cleanButton;
-    private JLabel hungerIncreasePrompt, energyIncreasePrompt, moodIncreasePrompt, cleanIncreasePrompt;
+    private JLabel hungerIncLabel, energyIncLabel, moodIncLabel, cleanIncLabel;
 
     PetActionScreen(Animal pet) {
         this.pet = pet;
@@ -23,24 +21,24 @@ public class PetActionScreen extends Screen {
     private void addVitals() {
         JLabel hungerIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"));
         Vital hungerBar = pet.getHungerVital();
-        hungerIncreasePrompt = new JLabel();
+        hungerIncLabel = new JLabel();
 
         JLabel energyIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/energy.png"));
         Vital energyBar = pet.getEnergyVital();
-        energyIncreasePrompt = new JLabel();
+        energyIncLabel = new JLabel();
 
         JLabel moodIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/mood.png"));
         Vital moodBar = pet.getMoodVital();
-        moodIncreasePrompt = new JLabel();
+        moodIncLabel = new JLabel();
 
         JLabel cleanIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/cleanliness.png"));
         Vital cleanBar = pet.getCleanVital();
-        cleanIncreasePrompt = new JLabel();
+        cleanIncLabel = new JLabel();
 
-        placeVital(30, 0, hungerBar, hungerIncreasePrompt, hungerIcon);
-        placeVital(280, 0, energyBar, energyIncreasePrompt, energyIcon);
-        placeVital(30, 40, moodBar, moodIncreasePrompt, moodIcon);
-        placeVital(280, 40, cleanBar, cleanIncreasePrompt, cleanIcon);
+        placeVital(30, 0, hungerBar, hungerIncLabel, hungerIcon);
+        placeVital(280, 0, energyBar, energyIncLabel, energyIcon);
+        placeVital(30, 40, moodBar, moodIncLabel, moodIcon);
+        placeVital(280, 40, cleanBar, cleanIncLabel, cleanIcon);
 
         JPanel vitalsPanel = new JPanel();
         vitalsPanel.setBounds(0,135,AppConstants.WIDTH, 65);
@@ -53,10 +51,10 @@ public class PetActionScreen extends Screen {
         vitalsPanel.add(moodIcon);
         vitalsPanel.add(energyBar);
         vitalsPanel.add(energyIcon);
-        vitalsPanel.add(hungerIncreasePrompt);
-        vitalsPanel.add(energyIncreasePrompt);
-        vitalsPanel.add(moodIncreasePrompt);
-        vitalsPanel.add(cleanIncreasePrompt);
+        vitalsPanel.add(hungerIncLabel);
+        vitalsPanel.add(energyIncLabel);
+        vitalsPanel.add(moodIncLabel);
+        vitalsPanel.add(cleanIncLabel);
 
         this.add(vitalsPanel);
     }
@@ -115,7 +113,7 @@ public class PetActionScreen extends Screen {
         this.add(actionsPanel);
     }
 
-    private void promptIncreaseValue(JLabel vital, int value) {
+    private void displayIncreaseValue(JLabel vital, int value) {
         vital.setText("+" + value);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
@@ -124,7 +122,7 @@ public class PetActionScreen extends Screen {
                         vital.setText("");
                     }
                 },
-                2000
+                3000
         );
     }
     @Override
@@ -165,7 +163,7 @@ public class PetActionScreen extends Screen {
                         foodName = "hamsterFood";
                         break;
                 }
-                promptIncreaseValue(hungerIncreasePrompt, pet.feed(foodName));
+                displayIncreaseValue(hungerIncLabel, pet.feed(foodName));
                 break;
             case "sleepButton":
 
@@ -176,7 +174,7 @@ public class PetActionScreen extends Screen {
                 sleepButton.setName("wakeupButton");
                 sleepButton.setText("Wake Up");
 
-                promptIncreaseValue(energyIncreasePrompt, pet.sleep());
+                displayIncreaseValue(energyIncLabel, pet.sleep());
                 break;
             case "wakeupButton":
                 toggleButton(playButton, true, new Color(0xBEE0F8));
@@ -187,7 +185,7 @@ public class PetActionScreen extends Screen {
                 sleepButton.setText("Sleep");
                 break;
             case "cleanButton":
-                promptIncreaseValue(cleanIncreasePrompt, pet.clean());
+                displayIncreaseValue(cleanIncLabel, pet.clean());
                 break;
         }
     }
@@ -199,5 +197,14 @@ public class PetActionScreen extends Screen {
         playButton.setEnabled(isClickable);
         feedButton.setEnabled(isClickable);
         cleanButton.setEnabled(isClickable);
+    }
+
+    private void placeVital(int x, int y, Vital vital, JLabel increasePrompt, JLabel vitalIcon) {
+        vitalIcon.setBounds(x, y, 24, 24);
+        vital.setBounds(x + 30, y, 180, 25);
+        vital.setStringPainted(true);
+        increasePrompt.setFont(new Font("Calibri", Font.BOLD, 18));
+        increasePrompt.setBounds(x + 215,y,35,25);
+        increasePrompt.setForeground(Color.green);
     }
 }
