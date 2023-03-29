@@ -59,21 +59,24 @@ abstract class Animal implements Observer {
         return clean;
     }
 
-    public void played(boolean isGameWon) {
+    public int played(boolean isGameWon) {
+        energy.decrease();
+
         if (isGameWon) {
-            mood.increase();
+            return mood.increase();
         }
 
+        return 0;
     }
 
-    public void clean() {
-        clean.increase();
+    public int clean() {
+        return clean.increase();
     }
 
-    public abstract void feed(String food);
+    public abstract int feed(String food);
 
-    public void sleep() {
-        energy.increase();
+    public int sleep() {
+        return energy.increase();
     }
 
     public String getName() {

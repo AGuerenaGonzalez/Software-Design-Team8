@@ -16,6 +16,19 @@ public class Vital extends JProgressBar {
         this.setValue(MAXVAL);
         this.setMinimum(MINVAL);
     }
+    public void decrease(){
+        int currVal = this.getValue();
+        int newVal = currVal - changeVal;
+
+        if (newVal <= MINVAL) {
+            newVal = MINVAL;
+            if (!isEmpty && observer != null)
+                observer.notifyEmptyInc();
+            isEmpty = true;
+        }
+
+        this.setValue(newVal);
+    }
 
     public void constDecrease() {
 
@@ -23,17 +36,7 @@ public class Vital extends JProgressBar {
             Thread.sleep(INTERVALTIME);
 
             while (true) {
-                int currVal = this.getValue();
-                int newVal = currVal - changeVal;
-
-                if (newVal <= MINVAL) {
-                    newVal = MINVAL;
-                    if (!isEmpty && observer != null)
-                        observer.notifyEmptyInc();
-                    isEmpty = true;
-                }
-
-                this.setValue(newVal);
+                decrease();
                 Thread.sleep(INTERVALTIME);
             }
         } catch (InterruptedException e) {
@@ -42,11 +45,11 @@ public class Vital extends JProgressBar {
 
     }
 
-    public void increase() {
-        increase(1);
+    public int increase() {
+        return increase(1);
     }
 
-    public void increase(double ratio) {
+    public int increase(double ratio) {
         int currVal = this.getValue();
         System.out.println("Currval was: " + currVal);
         int incVal = (int) (ratio * changeVal);
@@ -59,6 +62,8 @@ public class Vital extends JProgressBar {
 
         System.out.println("    Currval is: " + newVal);
         this.setValue(newVal);
+
+        return incVal;
     }
 
 
