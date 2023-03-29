@@ -139,7 +139,6 @@ public class PetActionScreen extends Screen {
                 int gameChoice = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameOptions, 0);
                 if (gameChoice == 0) {
                     Tamagotchi.switchScreen("GuessNumberScreen");
-                    System.out.println("test");
                 }
                 if (gameChoice == 1) {
                     Tamagotchi.switchScreen("MemoryGameScreen");
@@ -153,50 +152,49 @@ public class PetActionScreen extends Screen {
 
                 ImageIcon[] foodOptions = {dogFood, catFood, hamsterFood};
                 int foodChoice = JOptionPane.showOptionDialog(null, "Choose a food to feed " + pet.getName(), "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, foodOptions, 0);
+                String foodName;
                 switch (foodChoice) {
                     case 0:
-                        pet.feed("dogFood");
+                        foodName = "dogFood";
                         break;
                     case 1:
-                        pet.feed("catFood");
+                        foodName = "catFood";
                         break;
                     case 2:
-                        pet.feed("hamsterFood");
+                    default:
+                        foodName = "hamsterFood";
                         break;
                 }
-                promptIncreaseValue(hungerIncreasePrompt, 10);
+                promptIncreaseValue(hungerIncreasePrompt, pet.feed(foodName));
                 break;
             case "sleepButton":
-                System.out.println("Sleeping");
-                pet.sleep();
-                Thread sleepingThread = new Thread( new Runnable() {
-                    public void run() {
-                        toggleBehaviors(false, Color.lightGray);
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException ex) {
 
-                        }
-                        toggleBehaviors(true, new Color(0xBEE0F8));
-                    }
-                });
-                sleepingThread.start();
-                promptIncreaseValue(energyIncreasePrompt, 10);
+                toggleButton(playButton, false, Color.lightGray);
+                toggleButton(feedButton, false, Color.lightGray);
+                toggleButton(cleanButton, false, Color.lightGray);
+
+                sleepButton.setName("wakeupButton");
+                sleepButton.setText("Wake Up");
+
+                promptIncreaseValue(energyIncreasePrompt, pet.sleep());
+                break;
+            case "wakeupButton":
+                toggleButton(playButton, true, new Color(0xBEE0F8));
+                toggleButton(feedButton, true, new Color(0xBEE0F8));
+                toggleButton(cleanButton, true, new Color(0xBEE0F8));
+
+                sleepButton.setName("sleepButton");
+                sleepButton.setText("Sleep");
                 break;
             case "cleanButton":
-                System.out.println("Cleaning");
-                pet.clean();
-                promptIncreaseValue(cleanIncreasePrompt, 10);
+                promptIncreaseValue(cleanIncreasePrompt, pet.clean());
                 break;
         }
     }
 
-    private void toggleBehaviors(boolean isClickable, Color color) {
-        playButton.setBackground(color);
-        feedButton.setBackground(color);
-        sleepButton.setBackground(color);
-        cleanButton.setBackground(color);
-        this.repaint();
+    private void toggleButton(JButton button, boolean isClickable, Color color) {
+        button.setBackground(color);
+        button.setEnabled(isClickable);
 
         playButton.setEnabled(isClickable);
         feedButton.setEnabled(isClickable);
