@@ -8,10 +8,10 @@ public class Dog extends Animal {
         super("Dog", name, color, cDV, hDV, mDV, eDV);
     }
 
-    public void feed(String food) {
+    public int feed(String food) {
         if (food.equals("dogFood"))
-            hunger.increase();
+            return hunger.increase();
         else
-            hunger.increase(0.5);
+            return hunger.increase(0.5);
     }
 }
