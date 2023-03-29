@@ -42,7 +42,6 @@ public class Tamagotchi extends JFrame {
                 MemoryGameScreen memoryGame = new MemoryGameScreen(pet);
                 PANELSWITCHER.add(memoryGame, "MemoryGameScreen");
                 break;
-            case "returnButton":
             case "PetActionScreen":
                 PetActionScreen petAction = new PetActionScreen(pet);
                 PANELSWITCHER.add(petAction, "PetActionScreen");

@@ -12,6 +12,7 @@ abstract class Screen extends JPanel implements ActionListener {
 
     protected void addBanner() {
         JLabel title = new JLabel();
+        title.setBounds(0,0,AppConstants.WIDTH, 100);
         ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/tittleGroup8.png"), 400, 71);
         title.setIcon(titleImg);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -19,6 +20,7 @@ abstract class Screen extends JPanel implements ActionListener {
 
         JPanel tittlePanel = new JPanel();
         tittlePanel.setBounds(0, 0, AppConstants.WIDTH, 100);
+        tittlePanel.setLayout(null);
         tittlePanel.add(title);
 
         this.add(tittlePanel);
@@ -30,5 +32,16 @@ abstract class Screen extends JPanel implements ActionListener {
         button.setFocusable(false);
         button.setBackground(backgroundColor);
         button.setBorder(BorderFactory.createCompoundBorder());
+        button.setFont(new Font("Calibri", Font.PLAIN, 20));
+        button.setVerticalAlignment(JLabel.CENTER);
+        button.setHorizontalAlignment(JLabel.CENTER);
+    }
+    protected void placeVital(int x, int y, Vital vital, JLabel increasePrompt, JLabel vitalIcon) {
+        vitalIcon.setBounds(x, y, 24, 24);
+        vital.setBounds(x + 30, y, 180, 25);
+        vital.setStringPainted(true);
+        increasePrompt.setFont(new Font("Calibri", Font.BOLD, 18));
+        increasePrompt.setBounds(x + 215,y,35,25);
+        increasePrompt.setForeground(Color.green);
     }
 }
