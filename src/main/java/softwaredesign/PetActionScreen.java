@@ -113,7 +113,7 @@ public class PetActionScreen extends Screen {
         this.add(actionsPanel);
     }
 
-    private void displayIncreaseValue(JLabel vital, int value) {
+    private void displayIncVal(JLabel vital, int value) {
         vital.setText("+" + value);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
@@ -163,7 +163,7 @@ public class PetActionScreen extends Screen {
                         foodName = "hamsterFood";
                         break;
                 }
-                displayIncreaseValue(hungerIncLabel, pet.feed(foodName));
+                displayIncVal(hungerIncLabel, pet.feed(foodName));
                 break;
             case "sleepButton":
 
@@ -174,7 +174,7 @@ public class PetActionScreen extends Screen {
                 sleepButton.setName("wakeupButton");
                 sleepButton.setText("Wake Up");
 
-                displayIncreaseValue(energyIncLabel, pet.sleep());
+                displayIncVal(energyIncLabel, pet.sleep());
                 break;
             case "wakeupButton":
                 toggleButton(playButton, true, new Color(0xBEE0F8));
@@ -185,7 +185,7 @@ public class PetActionScreen extends Screen {
                 sleepButton.setText("Sleep");
                 break;
             case "cleanButton":
-                displayIncreaseValue(cleanIncLabel, pet.clean());
+                displayIncVal(cleanIncLabel, pet.clean());
                 break;
         }
     }
