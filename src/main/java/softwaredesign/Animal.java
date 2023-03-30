@@ -84,7 +84,7 @@ abstract class Animal implements Observer {
         return name;
     }
 
-    public long getLifettime() {
+    public long getTimeAlive() {
         return System.nanoTime() - startTime;
     }
 

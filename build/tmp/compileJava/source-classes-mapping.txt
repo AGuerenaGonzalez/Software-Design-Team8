@@ -25,12 +25,12 @@ softwaredesign/Animal.java
  softwaredesign.Animal$4
 softwaredesign/Vital.java
  softwaredesign.Vital
-softwaredesign/Cat.java
- softwaredesign.Cat
-softwaredesign/Screen.java
- softwaredesign.Screen
 softwaredesign/GuessNumberScreen.java
  softwaredesign.GuessNumberScreen
+softwaredesign/Screen.java
+ softwaredesign.Screen
+softwaredesign/Cat.java
+ softwaredesign.Cat
 softwaredesign/Tamagotchi.java
  softwaredesign.Tamagotchi
 softwaredesign/MemoryGameScreen.java
