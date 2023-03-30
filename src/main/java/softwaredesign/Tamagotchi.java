@@ -45,6 +45,10 @@ public class Tamagotchi extends JFrame {
                 PetActionScreen petAction = new PetActionScreen(pet);
                 PANELSWITCHER.add(petAction, "PetActionScreen");
                 break;
+            case "DeathScreen":
+                DeathScreen deathScreen = new DeathScreen(pet);
+                PANELSWITCHER.add(deathScreen, "DeathScreen");
+                break;
         }
         CL.show(PANELSWITCHER, screenName);
     }

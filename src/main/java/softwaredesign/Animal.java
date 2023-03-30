@@ -9,6 +9,7 @@ abstract class Animal implements Observer {
     private int numEmptyVitals = 0;
     private final int MAXEMPTYVITALS = 2;
     private final ImageIcon animalImg;
+    private final long startTime = System.nanoTime();
 
     private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
 
@@ -33,8 +34,8 @@ abstract class Animal implements Observer {
         numEmptyVitals++;
 
         if (numEmptyVitals == MAXEMPTYVITALS) {
+            Tamagotchi.switchScreen("DeathScreen");
             VITALTHREADS.interrupt();
-
             System.out.println("DEAD");
         }
     }
@@ -81,6 +82,10 @@ abstract class Animal implements Observer {
 
     public String getName() {
         return name;
+    }
+
+    public long getLifettime() {
+        return System.nanoTime() - startTime;
     }
 
     private void decreaseAllVitals() {
