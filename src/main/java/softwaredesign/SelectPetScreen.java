@@ -130,18 +130,8 @@ public class SelectPetScreen extends Screen {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        AbstractButton button;
-        String buttonName;
-        if (e.getSource() instanceof JButton)
-            button = (JButton) e.getSource();
-        else if (e.getSource() instanceof JRadioButton)
-            button = (JRadioButton) e.getSource();
-        else {
-            System.out.println("Action performed error.");
-            return;
-        }
-
-        buttonName = button.getName();
+        AbstractButton button = (AbstractButton) e.getSource();
+        String buttonName = button.getName();
 
         switch (buttonName) {
             case "dogButton":
