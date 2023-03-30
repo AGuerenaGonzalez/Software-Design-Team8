@@ -15,7 +15,7 @@ public class GuessNumberScreen extends MinigameScreen {
 
     GuessNumberScreen(Animal pet) {
         this.pet = pet;
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(null);
         addBanner();
         addMinigameName();
         addMinigamePanel();
