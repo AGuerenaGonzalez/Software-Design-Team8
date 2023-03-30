@@ -15,9 +15,7 @@ public class Tamagotchi extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         PANELSWITCHER.setLayout(CL);
 
-        SelectPetScreen selectPet = new SelectPetScreen();
-        PANELSWITCHER.add(selectPet, "selectPetScreen");
-        CL.show(PANELSWITCHER, "selectPetScreen");
+        switchScreen("selectpetscreen");
 
         this.add(PANELSWITCHER);
         this.setVisible(true);
@@ -32,22 +30,22 @@ public class Tamagotchi extends JFrame {
     }
 
     public static void switchScreen(String screenName) {
+        screenName = screenName.toLowerCase();
         switch (screenName) {
-            case "GuessNumberScreen":
-                GuessNumberScreen guessNumber = new GuessNumberScreen(pet);
-                PANELSWITCHER.add(guessNumber, "GuessNumberScreen");
+            case "selectpetscreen":
+                PANELSWITCHER.add(SelectPetScreen.getInstance(), screenName);
                 break;
-            case "MemoryGameScreen":
-                MemoryGameScreen memoryGame = new MemoryGameScreen(pet);
-                PANELSWITCHER.add(memoryGame, "MemoryGameScreen");
+            case "guessnumberscreen":
+                PANELSWITCHER.add(new GuessNumberScreen(pet), screenName);
                 break;
-            case "PetActionScreen":
-                PetActionScreen petAction = new PetActionScreen(pet);
-                PANELSWITCHER.add(petAction, "PetActionScreen");
+            case "memorygamescreen":
+                PANELSWITCHER.add(new MemoryGameScreen(pet), screenName);
                 break;
-            case "DeathScreen":
-                DeathScreen deathScreen = new DeathScreen(pet);
-                PANELSWITCHER.add(deathScreen, "DeathScreen");
+            case "petactionscreen":
+                PANELSWITCHER.add(PetActionScreen.getInstance(pet), screenName);
+                break;
+            case "deathscreen":
+                PANELSWITCHER.add(DeathScreen.getInstance(pet), screenName);
                 break;
         }
         CL.show(PANELSWITCHER, screenName);

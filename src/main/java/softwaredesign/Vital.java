@@ -4,21 +4,21 @@ import javax.swing.*;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
-    private final int INTERVALTIME = 9000;
-    private final int CHANGEVAL;
+    private final int DECINTERVAL = 30000;
+    private final int OFFSET;
     private boolean isEmpty = false;
     private Observer observer;
 
-    public Vital(Observer obs, int changeVal) {
+    public Vital(Observer obs, int offset) {
         observer = obs;
-        this.CHANGEVAL = changeVal;
+        this.OFFSET = offset;
         this.setMaximum(MAXVAL);
         this.setValue(MAXVAL);
         this.setMinimum(MINVAL);
     }
     public void decrease(){
         int currVal = this.getValue();
-        int newVal = currVal - CHANGEVAL;
+        int newVal = currVal - OFFSET;
 
         if (newVal <= MINVAL) {
             newVal = MINVAL;
@@ -33,14 +33,14 @@ public class Vital extends JProgressBar {
     public void constDecrease() {
 
         try {
-            Thread.sleep(INTERVALTIME);
+            Thread.sleep(DECINTERVAL);
 
             while (true) {
                 decrease();
-                Thread.sleep(INTERVALTIME);
+                Thread.sleep(DECINTERVAL);
             }
         } catch (InterruptedException e) {
-            System.out.println("Interupt exception");
+            //expected interupt on thread when Animal dies
         }
 
     }
@@ -51,7 +51,7 @@ public class Vital extends JProgressBar {
 
     public int increase(double ratio) {
         int currVal = this.getValue();
-        int incVal = (int) (ratio * CHANGEVAL);
+        int incVal = (int) (ratio * OFFSET);
         int newVal = currVal + incVal;
 
         if (isEmpty) {

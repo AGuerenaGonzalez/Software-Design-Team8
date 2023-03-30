@@ -5,17 +5,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class SelectPetScreen extends Screen {
+
+    private static SelectPetScreen instance;
     private String currAnimal, currColor;
     private ImageIcon currPetImg;
-    private JLabel currPetLabel;
+    private final JLabel petLabel = new JLabel();
     private JTextField nameField;
-    public SelectPetScreen(){
+    private SelectPetScreen(){
         this.setLayout(null);
         addBanner();
         addPetOptions();
         addNamePrompt();
         addConfirmButton();
         addPetImgPanel();
+    }
+    public static SelectPetScreen getInstance(){
+        if (instance == null)
+                instance = new SelectPetScreen();
+        return instance;
     }
     private void addPetOptions() {
         JLabel prompt = new JLabel("Create a pet!");
@@ -109,12 +116,10 @@ public class SelectPetScreen extends Screen {
     }
 
     private void addPetImgPanel() {
-        JLabel petLabel = new JLabel();
 
         JPanel petPanel = new JPanel();
         petPanel.setBounds(0,390,AppConstants.WIDTH, 310);
         petPanel.add(petLabel);
-        currPetLabel = petLabel;
         this.add(petPanel);
     }
 
@@ -124,7 +129,7 @@ public class SelectPetScreen extends Screen {
             currPetImg = new ImageIcon(String.format("src/main/java/softwaredesign/IMGs/animalsImgs/%s%s.png", currColor, currAnimal));
             ImageIcon tempPetImg = scaleImage(currPetImg, 300, 300);;
 
-            currPetLabel.setIcon(tempPetImg);
+            petLabel.setIcon(tempPetImg);
         }
     }
 
@@ -164,7 +169,6 @@ public class SelectPetScreen extends Screen {
         displayPetImg();
     }
     private Animal createPet(String animal, String name, ImageIcon img) {
-        AnimalFactory animalFactory = new AnimalFactory();
-        return animalFactory.getAnimal(animal, name, img);
+        return AnimalFactory.getAnimal(animal, name, img);
     }
 }

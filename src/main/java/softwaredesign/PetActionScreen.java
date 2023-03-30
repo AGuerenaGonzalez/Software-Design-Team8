@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class PetActionScreen extends Screen {
+    private static PetActionScreen instance;
     private final Animal pet;
     private JButton playButton, feedButton, sleepButton, cleanButton;
     private JLabel hungerIncLabel, energyIncLabel, moodIncLabel, cleanIncLabel;
@@ -17,6 +18,12 @@ public class PetActionScreen extends Screen {
         addPetImg();
         addBehaviorButtons();
         addPetName();
+    }
+
+    public static PetActionScreen getInstance(Animal pet){
+        if(instance == null)
+            instance = new PetActionScreen(pet);
+        return instance;
     }
     private void addVitals() {
         JLabel hungerIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"));
@@ -113,13 +120,13 @@ public class PetActionScreen extends Screen {
         this.add(actionsPanel);
     }
 
-    private void displayIncVal(JLabel vital, int value) {
-        vital.setText("+" + value);
+    private void displayIncVal(JLabel incLabel, int value) {
+        incLabel.setText("+" + value);
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        vital.setText("");
+                        incLabel.setText("");
                     }
                 },
                 3000

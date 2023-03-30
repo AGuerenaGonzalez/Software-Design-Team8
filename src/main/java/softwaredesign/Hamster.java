@@ -7,7 +7,7 @@ public class Hamster extends Animal{
         super(name, img, cDV, hDV, mDV, eDV);
     }
     public int feed(String food){
-        if (food.equals("hamsterFood"))
+        if (food.equalsIgnoreCase("hamsterFood"))
             return hunger.increase();
         else
             return hunger.increase(0.5);

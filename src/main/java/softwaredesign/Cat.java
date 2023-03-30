@@ -9,7 +9,7 @@ public class Cat extends Animal {
     }
 
     public int feed(String food) {
-        if (food.equals("catFood"))
+        if (food.equalsIgnoreCase("catFood"))
             return hunger.increase();
         else
             return hunger.increase(0.5);
