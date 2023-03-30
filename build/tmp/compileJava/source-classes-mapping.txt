@@ -1,17 +1,15 @@
 softwaredesign/Screen.java
  softwaredesign.Screen
-softwaredesign/Vital.java
- softwaredesign.Vital
+softwaredesign/Observer.java
+ softwaredesign.Observer
 softwaredesign/MinigameScreen.java
  softwaredesign.MinigameScreen
 softwaredesign/AppConstants.java
  softwaredesign.AppConstants
-softwaredesign/Observer.java
- softwaredesign.Observer
 softwaredesign/SelectPetScreen.java
  softwaredesign.SelectPetScreen
-softwaredesign/GuessNumberScreen.java
- softwaredesign.GuessNumberScreen
+softwaredesign/DeathScreen.java
+ softwaredesign.DeathScreen
 softwaredesign/Hamster.java
  softwaredesign.Hamster
 softwaredesign/PetActionScreen.java
@@ -25,13 +23,15 @@ softwaredesign/Animal.java
  softwaredesign.Animal$2
  softwaredesign.Animal$3
  softwaredesign.Animal$4
-softwaredesign/AnimalFactory.java
- softwaredesign.AnimalFactory
+softwaredesign/Vital.java
+ softwaredesign.Vital
+softwaredesign/Tamagotchi.java
+ softwaredesign.Tamagotchi
 softwaredesign/Cat.java
  softwaredesign.Cat
 softwaredesign/MemoryGameScreen.java
  softwaredesign.MemoryGameScreen
-softwaredesign/DeathScreen.java
- softwaredesign.DeathScreen
-softwaredesign/Tamagotchi.java
- softwaredesign.Tamagotchi
+softwaredesign/AnimalFactory.java
+ softwaredesign.AnimalFactory
+softwaredesign/GuessNumberScreen.java
+ softwaredesign.GuessNumberScreen
