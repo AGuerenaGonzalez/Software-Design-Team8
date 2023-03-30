@@ -5,20 +5,30 @@ import java.awt.*;
 
 abstract class MinigameScreen extends Screen {
     protected JButton returnButton, playAgainButton;
-    MinigameScreen() {
+
+    protected void addMinigameName(String name){
+        JLabel minigameName = new JLabel(name);
+        minigameName.setHorizontalAlignment(JLabel.CENTER);
+        minigameName.setVerticalAlignment(JLabel.CENTER);
+
+        JPanel minigameNamePanel = new JPanel();
+        minigameNamePanel.setBounds(0, 100, AppConstants.WIDTH, 50);
+        minigameNamePanel.add(minigameName);
+
+        this.add(minigameNamePanel);
     }
 
-    abstract void addMinigameName();
+    protected abstract void addMinigamePanel();
 
-    protected void addBehaviorButtons() {
+    protected void addPlayReturnButtons() {
         playAgainButton = new JButton();
-        addButton(playAgainButton, 160, 30, 100, 100, new Color(0xBEE0F8));
+        addButton(playAgainButton, 160, 30, 110, 100, new Color(0xBEE0F8));
         playAgainButton.setName("playAgainButton");
         playAgainButton.setText("Play Again");
         playAgainButton.setEnabled(false);
 
         returnButton = new JButton();
-        addButton(returnButton, 290, 30, 100, 100, new Color(0xBEE0F8));
+        addButton(returnButton, 290, 30, 110, 100, new Color(0xBEE0F8));
         returnButton.setName("returnButton");
         returnButton.setText("Main Screen");
 

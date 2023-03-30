@@ -4,19 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class DeathScreen extends Screen{
-    private Animal pet = null;
+public class DeathScreen extends Screen {
+    private static DeathScreen instance;
+    private Animal pet;
     private JButton quitButton;
+
     public DeathScreen(Animal pet) {
         this.pet = pet;
         this.setLayout(null);
         addBanner();
         addDeathScreenPanel();
     }
+
+    public static DeathScreen getInstance(Animal pet) {
+        if (instance == null)
+            instance = new DeathScreen(pet);
+        return instance;
+    }
+
     private void addDeathScreenPanel() {
         JLabel youLostPrompt = new JLabel("You lost!");
         youLostPrompt.setFont(new Font("Calibri", Font.BOLD, 50));
-        youLostPrompt.setBounds(125,0, 300, 70);
+        youLostPrompt.setBounds(125, 0, 300, 70);
         youLostPrompt.setHorizontalAlignment(JLabel.CENTER);
         youLostPrompt.setVerticalAlignment(JLabel.CENTER);
 
@@ -27,18 +36,18 @@ public class DeathScreen extends Screen{
         petLabel.setHorizontalAlignment(JLabel.CENTER);
         petLabel.setVerticalAlignment(JLabel.CENTER);
 
-        long secondsLifetime = pet.getLifettime() / 1000000000;
-        JLabel lifeTimePrompt = new JLabel( pet.getName()+ " survived for " + Math.round(secondsLifetime / 60) + " minutes");
+        long secondsLifetime = pet.getTimeAlive() / 1000000000;
+        JLabel lifeTimePrompt = new JLabel(pet.getName() + " survived for " + Math.round(secondsLifetime / 60) + " minutes");
         lifeTimePrompt.setFont(new Font("Calibri", Font.PLAIN, 32));
-        lifeTimePrompt.setBounds(0,320, AppConstants.WIDTH, 45);
+        lifeTimePrompt.setBounds(0, 320, AppConstants.WIDTH, 45);
         lifeTimePrompt.setHorizontalAlignment(JLabel.CENTER);
         lifeTimePrompt.setVerticalAlignment(JLabel.CENTER);
 
-        JLabel message = new JLabel("<html><p>Don't worry, losing is a part of the game! Remember, your Tamagotchi needs your love and attention no matter what. " +
+        JLabel message = new JLabel("Don't worry, losing is a part of the game! Remember, your Tamagotchi needs your love and attention no matter what. " +
                 "Take some time to reflect on what went wrong and how you can improve for next time. With practice and care, you'll be able to raise a happy and " +
-                "healthy Tamagotchi in no time. Keep trying and don't give up!</p></html>");
+                "healthy Tamagotchi in no time. Keep trying and don't give up!");
         message.setFont(new Font("Calibri", Font.PLAIN, 18));
-        message.setBounds(50,365, 450, 155);
+        message.setBounds(50, 365, 450, 155);
         message.setHorizontalAlignment(JLabel.CENTER);
         message.setVerticalAlignment(JLabel.TOP);
 
@@ -58,6 +67,7 @@ public class DeathScreen extends Screen{
 
         this.add(deathScreenPanel);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();

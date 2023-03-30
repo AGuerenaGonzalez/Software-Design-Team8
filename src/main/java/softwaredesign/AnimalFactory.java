@@ -3,7 +3,8 @@ package softwaredesign;
 import javax.swing.*;
 
 public class AnimalFactory {
-    public Animal getAnimal(String animalType, String name, ImageIcon img) {
+    public static Animal getAnimal(String animalType, String name, ImageIcon img) {
+        animalType.toLowerCase();
         switch (animalType) {
             case "Dog":
                 return new Dog(name, img, 12, 16, 8, 16);

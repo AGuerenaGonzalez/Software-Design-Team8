@@ -8,34 +8,20 @@ import java.util.Random;
 public class GuessNumberScreen extends MinigameScreen {
 
     private JTextField numberField;
-    private final Random random = new Random();
-    private final int correctNumber = random.nextInt(10);
-    private Animal pet = null;
+    private final int CORRECTNUM = new Random().nextInt(10);
+    private Animal pet;
     private JButton guessButton;
 
     GuessNumberScreen(Animal pet) {
         this.pet = pet;
         this.setLayout(null);
         addBanner();
-        addMinigameName();
+        addMinigameName("GuessTheNumber");
         addMinigamePanel();
-        addBehaviorButtons();
-        System.out.println(correctNumber);
+        addPlayReturnButtons();
     }
 
-    void addMinigameName() {
-        JLabel minigameName = new JLabel("GuessTheNumber");
-        minigameName.setHorizontalAlignment(JLabel.CENTER);
-        minigameName.setVerticalAlignment(JLabel.CENTER);
-
-        JPanel minigameNamePanel = new JPanel();
-        minigameNamePanel.setBounds(0, 100, AppConstants.WIDTH, 100);
-        minigameNamePanel.add(minigameName);
-
-        this.add(minigameNamePanel);
-    }
-
-    private void addMinigamePanel() {
+    protected void addMinigamePanel() {
         numberField = new JTextField(10);
         JLabel prompt = new JLabel("Enter number to guess here:");
         guessButton = new JButton();
@@ -60,13 +46,13 @@ public class GuessNumberScreen extends MinigameScreen {
             case "guessName":
                 int guess = Integer.parseInt(numberField.getText());
                 String answer;
-                if (guess == correctNumber) {
+                if (guess == CORRECTNUM) {
                     answer = "Correct!";
                     pet.played(true);
                     playAgainButton.setEnabled(true);
                     guessButton.setEnabled(false);
 
-                } else if (guess > correctNumber) {
+                } else if (guess > CORRECTNUM) {
                     answer = "Lower";
                 } else {
                     answer = "Higher";
