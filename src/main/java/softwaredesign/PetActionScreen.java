@@ -132,7 +132,6 @@ public class PetActionScreen extends Screen {
 
         switch (buttonName) {
             case "playButton":
-                System.out.println("Playing");
                 String[] gameOptions = {"GuessTheNumber", "MemoryGame", "Cancel"};
                 int gameChoice = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameOptions, 0);
                 if (gameChoice == 0) {
@@ -143,7 +142,6 @@ public class PetActionScreen extends Screen {
                 }
                 break;
             case "feedButton":
-                System.out.println("Feeding");
                 ImageIcon dogFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/dogFood.png"), 45, 45);
                 ImageIcon catFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/catFood.png"), 45, 45);
                 ImageIcon hamsterFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/hamsterFood.png"), 45, 45);

@@ -37,7 +37,6 @@ abstract class Animal implements Observer {
         if (numEmptyVitals == MAXEMPTYVITALS) {
             Tamagotchi.switchScreen("DeathScreen");
             VITALTHREADS.interrupt();
-            System.out.println("DEAD");
         }
     }
 
