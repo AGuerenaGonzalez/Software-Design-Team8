@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
-    private final int INTERVALTIME = 5000;
+    private final int INTERVALTIME = 9000;
     private final int CHANGEVAL;
     private boolean isEmpty = false;
     private Observer observer;
