@@ -9,7 +9,7 @@ abstract class Animal implements Observer {
     private int numEmptyVitals = 0;
     private final int MAXEMPTYVITALS = 2;
     private final ImageIcon animalImg;
-    private final long startTime = System.nanoTime();
+    private final long startTime;
 
     private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
 
@@ -21,6 +21,7 @@ abstract class Animal implements Observer {
         this.energy = new Vital(this, energyDiffVal);
         this.mood = new Vital(this, moodDiffVal);
         this.clean = new Vital(this, cleanDiffVal);
+        startTime = System.nanoTime();
 
         decreaseAllVitals();
     }
