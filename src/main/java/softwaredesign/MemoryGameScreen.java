@@ -10,10 +10,10 @@ import java.util.List;
 
 public class MemoryGameScreen extends MinigameScreen {
     private Animal pet;
-    private Integer[] randomArray = {1, 2, 3, 4, 5, 6};
-    private Integer[] guessedArray = {0, 0, 0, 0, 0, 0};
+    private Integer[] randomArray = {1, 2, 3, 4, 5};
+    private Integer[] guessedArray = {0, 0, 0, 0, 0};
     private int counter = 0;
-    JButton button_1, button_2, button_3, button_4, button_5, button_6;
+    JButton button_1, button_2, button_3, button_4, button_5;
     JButton description;
 
     public MemoryGameScreen(Animal pet) {
@@ -51,25 +51,21 @@ public class MemoryGameScreen extends MinigameScreen {
         button_3 = new JButton("3");
         button_4 = new JButton("4");
         button_5 = new JButton("5");
-        button_6 = new JButton("6");
         button_1.setName("1");
         button_2.setName("2");
         button_3.setName("3");
         button_4.setName("4");
         button_5.setName("5");
-        button_6.setName("6");
         button_1.setEnabled(false);
         button_2.setEnabled(false);
         button_3.setEnabled(false);
         button_4.setEnabled(false);
         button_5.setEnabled(false);
-        button_6.setEnabled(false);
         addButton(button_1, 100, 125, 100, 100, new Color(0xBEE0F8));
         addButton(button_2, 225, 125, 100, 100, new Color(0xBEE0F8));
         addButton(button_3, 350, 125, 100, 100, new Color(0xBEE0F8));
-        addButton(button_4, 100, 250, 100, 100, new Color(0xBEE0F8));
-        addButton(button_5, 225, 250, 100, 100, new Color(0xBEE0F8));
-        addButton(button_6, 350, 250, 100, 100, new Color(0xBEE0F8));
+        addButton(button_4, 162, 250, 100, 100, new Color(0xBEE0F8));
+        addButton(button_5, 287, 250, 100, 100, new Color(0xBEE0F8));
         JPanel miniGamePanel = new JPanel();
         miniGamePanel.setBounds(0, 150, AppConstants.WIDTH, 450);
         miniGamePanel.setLayout(null);
@@ -79,7 +75,6 @@ public class MemoryGameScreen extends MinigameScreen {
         miniGamePanel.add(button_3);
         miniGamePanel.add(button_4);
         miniGamePanel.add(button_5);
-        miniGamePanel.add(button_6);
         this.add(miniGamePanel);
     }
     private void displaySequence() {
@@ -94,7 +89,6 @@ public class MemoryGameScreen extends MinigameScreen {
                         button_3.setEnabled(true);
                         button_4.setEnabled(true);
                         button_5.setEnabled(true);
-                        button_6.setEnabled(true);
                         description.setEnabled(false);
                     }
                 },
@@ -104,7 +98,7 @@ public class MemoryGameScreen extends MinigameScreen {
     private void handleNumberButton(int number) {
         guessedArray[counter] = number;
         counter++;
-        if(counter == 6) compareArrays();
+        if(counter == 5) compareArrays();
     }
     private void compareArrays() {
         if(Arrays.equals(guessedArray, randomArray)) {
@@ -120,7 +114,6 @@ public class MemoryGameScreen extends MinigameScreen {
         button_3.setEnabled(false);
         button_4.setEnabled(false);
         button_5.setEnabled(false);
-        button_6.setEnabled(false);
         playAgainButton.setEnabled(true);
     }
     @Override
@@ -145,9 +138,6 @@ public class MemoryGameScreen extends MinigameScreen {
                 break;
             case "5":
                 handleNumberButton(5);
-                break;
-            case "6":
-                handleNumberButton(6);
                 break;
             case "returnButton":
                 Tamagotchi.switchScreen("PetActionScreen");
