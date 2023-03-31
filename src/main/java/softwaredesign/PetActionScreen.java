@@ -1,77 +1,93 @@
 package softwaredesign;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import java.io.IOException;
 
 public class PetActionScreen extends Screen {
-    int CHANGETHISSSSSS = 4;
-    PetActionScreen() {
+    private static PetActionScreen instance;
+    private final Animal pet;
+    private JButton playButton, feedButton, sleepButton, cleanButton;
+    private JLabel hungerIncLabel, energyIncLabel, moodIncLabel, cleanIncLabel;
+
+    PetActionScreen(Animal pet) {
+        this.pet = pet;
         this.setLayout(null);
-        addTitle();
+        addBanner();
         addVitals();
         addPetImg();
         addBehaviorButtons();
+        addPetName();
     }
 
+    public static PetActionScreen getInstance(Animal pet){
+        if(instance == null)
+            instance = new PetActionScreen(pet);
+        return instance;
+    }
     private void addVitals() {
-        Animal pet = Tamagotchi.getPet();
-
+        JLabel hungerIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/hunger.png"));
         Vital hungerBar = pet.getHungerVital();
-        hungerBar.setBounds(85,0,180,20);
-        hungerBar.setStringPainted(true);
+        hungerIncLabel = new JLabel();
 
+        JLabel energyIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/energy.png"));
         Vital energyBar = pet.getEnergyVital();
-        energyBar.setBounds(285,0,180,20);
-        energyBar.setStringPainted(true);
+        energyIncLabel = new JLabel();
 
+        JLabel moodIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/mood.png"));
         Vital moodBar = pet.getMoodVital();
-        moodBar.setBounds(85,40,180,20);
-        moodBar.setStringPainted(true);
+        moodIncLabel = new JLabel();
 
+        JLabel cleanIcon = new JLabel(new ImageIcon("src/main/java/softwaredesign/IMGs/vitalIMG/cleanliness.png"));
         Vital cleanBar = pet.getCleanVital();
-        cleanBar.setBounds(285,40,180,20);
-        cleanBar.setStringPainted(true);
+        cleanIncLabel = new JLabel();
+
+        placeVital(30, 0, hungerBar, hungerIncLabel, hungerIcon);
+        placeVital(280, 0, energyBar, energyIncLabel, energyIcon);
+        placeVital(30, 40, moodBar, moodIncLabel, moodIcon);
+        placeVital(280, 40, cleanBar, cleanIncLabel, cleanIcon);
 
         JPanel vitalsPanel = new JPanel();
-        vitalsPanel.setBounds(0,100,AppConstants.WIDTH, 100);
+        vitalsPanel.setBounds(0,135,AppConstants.WIDTH, 65);
         vitalsPanel.setLayout(null);
         vitalsPanel.add(hungerBar);
+        vitalsPanel.add(hungerIcon);
         vitalsPanel.add(cleanBar);
+        vitalsPanel.add(cleanIcon);
         vitalsPanel.add(moodBar);
+        vitalsPanel.add(moodIcon);
         vitalsPanel.add(energyBar);
+        vitalsPanel.add(energyIcon);
+        vitalsPanel.add(hungerIncLabel);
+        vitalsPanel.add(energyIncLabel);
+        vitalsPanel.add(moodIncLabel);
+        vitalsPanel.add(cleanIncLabel);
 
         this.add(vitalsPanel);
     }
 
-    private void addTitle(){
-        JLabel title = new JLabel();
-        ImageIcon titleImg = scaleImage(new ImageIcon("src/main/java/softwaredesign/tittleGroup8.png"), 400, 71);
-        title.setIcon(titleImg);
-        title.setHorizontalAlignment(JLabel.CENTER);
-        title.setVerticalAlignment(JLabel.CENTER);
+    private void addPetName() {
+        JLabel name = new JLabel(pet.getName());
+        name.setFont(new Font("Calibri", Font.PLAIN, 30));
+        JPanel petNamePanel = new JPanel();
+        petNamePanel.setBounds(0,100, AppConstants.WIDTH, 35);
+        petNamePanel.add(name);
 
-        JPanel tittlePanel = new JPanel();
-        tittlePanel.setBounds(0,0,AppConstants.WIDTH, 100);
-        tittlePanel.add(title);
-
-        this.add(tittlePanel);
+        this.add(petNamePanel);
     }
-    private void addPetImg(){
+    private void addPetImg() {
         JLabel petLabel = new JLabel();
-        ImageIcon dog = scaleImage(new ImageIcon("src/main/java/softwaredesign/dog.png"), 350, 350);
-        petLabel.setIcon(dog);
+        ImageIcon petIMG = scaleImage(pet.getAnimalImg(), 450, 450);
+        petLabel.setIcon(petIMG);
 
         JPanel petPanel = new JPanel();
-        petPanel.setBounds(0,200,AppConstants.WIDTH, 400);
+        petPanel.setBounds(0, 200, AppConstants.WIDTH, 400);
         petPanel.add(petLabel);
 
         this.add(petPanel);
     }
-    private void addBehaviorButtons(){
-        JButton playButton, feedButton, sleepButton, cleanButton;
+
+    private void addBehaviorButtons() {
 
         playButton = new JButton();
         addButton(playButton, 30, 30, 100, 100, new Color(0xBEE0F8));
@@ -95,7 +111,7 @@ public class PetActionScreen extends Screen {
 
         JPanel actionsPanel = new JPanel();
         actionsPanel.setLayout(null);
-        actionsPanel.setBounds(0,600,AppConstants.WIDTH, 200);
+        actionsPanel.setBounds(0, 600, AppConstants.WIDTH, 200);
         actionsPanel.add(playButton);
         actionsPanel.add(feedButton);
         actionsPanel.add(sleepButton);
@@ -104,23 +120,96 @@ public class PetActionScreen extends Screen {
         this.add(actionsPanel);
     }
 
+    private void displayIncVal(JLabel incLabel, int value) {
+        incLabel.setText("+" + value);
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        incLabel.setText("");
+                    }
+                },
+                3000
+        );
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         String buttonName = button.getName();
-        switch(buttonName){
+
+        switch (buttonName) {
             case "playButton":
-                System.out.println("Playing");
+                String[] gameOptions = {"GuessTheNumber", "MemoryGame", "Cancel"};
+                int gameChoice = JOptionPane.showOptionDialog(null, "Choose a minigame", "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, gameOptions, 0);
+                if (gameChoice == 0) {
+                    Tamagotchi.switchScreen("GuessNumberScreen");
+                }
+                if (gameChoice == 1) {
+                    Tamagotchi.switchScreen("MemoryGameScreen");
+                }
                 break;
             case "feedButton":
-                System.out.println("Feeding");
+                ImageIcon dogFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/dogFood.png"), 45, 45);
+                ImageIcon catFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/catFood.png"), 45, 45);
+                ImageIcon hamsterFood = scaleImage(new ImageIcon("src/main/java/softwaredesign/IMGs/foodImgs/hamsterFood.png"), 45, 45);
+
+                ImageIcon[] foodOptions = {dogFood, catFood, hamsterFood};
+                int foodChoice = JOptionPane.showOptionDialog(null, "Choose a food to feed " + pet.getName(), "", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, foodOptions, 0);
+                String foodName;
+                switch (foodChoice) {
+                    case 0:
+                        foodName = "dogFood";
+                        break;
+                    case 1:
+                        foodName = "catFood";
+                        break;
+                    case 2:
+                    default:
+                        foodName = "hamsterFood";
+                        break;
+                }
+                displayIncVal(hungerIncLabel, pet.feed(foodName));
                 break;
             case "sleepButton":
-                System.out.println("Sleeping");
+
+                toggleButton(playButton, false, Color.lightGray);
+                toggleButton(feedButton, false, Color.lightGray);
+                toggleButton(cleanButton, false, Color.lightGray);
+
+                sleepButton.setName("wakeupButton");
+                sleepButton.setText("Wake Up");
+
+                displayIncVal(energyIncLabel, pet.sleep());
+                break;
+            case "wakeupButton":
+                toggleButton(playButton, true, new Color(0xBEE0F8));
+                toggleButton(feedButton, true, new Color(0xBEE0F8));
+                toggleButton(cleanButton, true, new Color(0xBEE0F8));
+
+                sleepButton.setName("sleepButton");
+                sleepButton.setText("Sleep");
                 break;
             case "cleanButton":
-                System.out.println("Cleaning");
+                displayIncVal(cleanIncLabel, pet.clean());
                 break;
         }
+    }
+
+    private void toggleButton(JButton button, boolean isClickable, Color color) {
+        button.setBackground(color);
+        button.setEnabled(isClickable);
+
+        playButton.setEnabled(isClickable);
+        feedButton.setEnabled(isClickable);
+        cleanButton.setEnabled(isClickable);
+    }
+
+    private void placeVital(int x, int y, Vital vital, JLabel incLabel, JLabel vitalIcon) {
+        vitalIcon.setBounds(x, y, 24, 24);
+        vital.setBounds(x + 30, y, 180, 25);
+        vital.setStringPainted(true);
+        incLabel.setFont(new Font("Calibri", Font.BOLD, 18));
+        incLabel.setBounds(x + 215,y,35,25);
+        incLabel.setForeground(Color.green);
     }
 }

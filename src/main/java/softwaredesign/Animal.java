@@ -1,62 +1,130 @@
 package softwaredesign;
 
-abstract class Animal {
+import javax.swing.*;
 
-    protected int cleanDiffVal, hungerDiffVal, moodDiffVal, energyDiffVal;
-    protected Vital hunger, energy, mood, clean;
-    protected String name, color;
-    private boolean isAlive = true;
+abstract class Animal implements Observer {
 
-    protected void setVitals(){
-        this.hunger = new Vital(hungerDiffVal);
-        this.energy = new Vital(energyDiffVal);
-        this.mood = new Vital(moodDiffVal);
-        this.clean = new Vital(cleanDiffVal);
-    }
-    protected void setVals(String name, String color, int cleanDiffVal,
-                           int hungerDiffVal, int moodDiffVal, int energyDiffVal){
+    protected final Vital hunger, energy, mood, clean;
+    private final String name;
+    private int numEmptyVitals = 0;
+    private final int MAXEMPTYVITALS = 2;
+    private final ImageIcon animalImg;
+    private final long startTime;
+
+    private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
+
+    public Animal(String name, ImageIcon img, int cleanDiffVal,
+                  int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
         this.name = name;
-        this.color = color;
-        this.cleanDiffVal = cleanDiffVal;
-        this.hungerDiffVal = hungerDiffVal;
-        this.moodDiffVal = moodDiffVal;
-        this.energyDiffVal = energyDiffVal;
+        this.animalImg = img;
+        this.hunger = new Vital(this, hungerDiffVal);
+        this.energy = new Vital(this, energyDiffVal);
+        this.mood = new Vital(this, moodDiffVal);
+        this.clean = new Vital(this, cleanDiffVal);
+        startTime = System.nanoTime();
+
+        decreaseAllVitals();
     }
 
-    public Vital getHungerVital(){
+
+    public ImageIcon getAnimalImg() {
+        return animalImg;
+    }
+
+    public void notifyEmptyInc() {
+        numEmptyVitals++;
+
+        if (numEmptyVitals == MAXEMPTYVITALS) {
+            Tamagotchi.switchScreen("DeathScreen");
+            VITALTHREADS.interrupt();
+        }
+    }
+
+    public void notifyEmptyDec() {
+        numEmptyVitals--;
+    }
+
+    public Vital getHungerVital() {
         return hunger;
     }
-    public Vital getEnergyVital(){
+
+    public Vital getEnergyVital() {
         return energy;
     }
-    public Vital getMoodVital(){
+
+    public Vital getMoodVital() {
         return mood;
     }
-    public Vital getCleanVital(){
+
+    public Vital getCleanVital() {
         return clean;
     }
 
-    public void play(){
-//        moodLevel.increase();
-        System.out.println("PLAYING");
-    }
-    public void clean(){
-//        cleanLevel.increase();
-        System.out.println("CLEANING");
-    }
-    public void feed(){
-//        hungerLevel.increase();
-        System.out.println("FEEDING");
-    }
-    public void sleep(){
-//        sleepLevel.increase();
-        System.out.println("SLEEPING");
+    public int played(boolean isGameWon) {
+        energy.decrease();
+
+        if (isGameWon) {
+            return mood.increase();
+        }
+
+        return 0;
     }
 
-    public void decreaseAllVitals(){
-//        hungerLevel.decrease();
-//        cleanLevel.decrease();
-//        sleepLevel.decrease();
-//        moodLevel.decrease();
+    public int clean() {
+        return clean.increase();
+    }
+
+    public abstract int feed(String food);
+
+    public int sleep() {
+        return energy.increase();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getTimeAlive() {
+        return System.nanoTime() - startTime;
+    }
+
+    private void decreaseAllVitals() {
+
+        Thread hungerThread = new Thread(VITALTHREADS, new Runnable() {
+            public void run() {
+                hunger.constDecrease();
+            }
+        });
+
+        Thread cleanThread = new Thread(VITALTHREADS, new Runnable() {
+            public void run() {
+                clean.constDecrease();
+            }
+        });
+
+        Thread energyThread = new Thread(VITALTHREADS, new Runnable() {
+            public void run() {
+                energy.constDecrease();
+            }
+        });
+
+        Thread moodThread = new Thread(VITALTHREADS, new Runnable() {
+            public void run() {
+                mood.constDecrease();
+            }
+        });
+
+        hungerThread.setDaemon(true);
+        hungerThread.start();
+
+        cleanThread.setDaemon(true);
+        cleanThread.start();
+
+        energyThread.setDaemon(true);
+        energyThread.start();
+
+        moodThread.setDaemon(true);
+        moodThread.start();
+
     }
 }

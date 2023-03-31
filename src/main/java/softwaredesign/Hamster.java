@@ -1,8 +1,15 @@
 package softwaredesign;
 
+import javax.swing.*;
+
 public class Hamster extends Animal{
-    public Hamster(String name, String color){
-        this.setVals(name, color, 4, 12, 20, 4);
-        this.setVitals();
+    public Hamster(String name, ImageIcon img, int cDV, int hDV, int mDV, int eDV){
+        super(name, img, cDV, hDV, mDV, eDV);
+    }
+    public int feed(String food){
+        if (food.equalsIgnoreCase("hamsterFood"))
+            return hunger.increase();
+        else
+            return hunger.increase(0.5);
     }
 }
