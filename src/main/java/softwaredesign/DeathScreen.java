@@ -43,9 +43,9 @@ public class DeathScreen extends Screen {
         lifeTimePrompt.setHorizontalAlignment(JLabel.CENTER);
         lifeTimePrompt.setVerticalAlignment(JLabel.CENTER);
 
-        JLabel message = new JLabel("Don't worry, losing is a part of the game! Remember, your Tamagotchi needs your love and attention no matter what. " +
+        JLabel message = new JLabel("<html>Don't worry, losing is a part of the game! Remember, your Tamagotchi needs your love and attention no matter what. " +
                 "Take some time to reflect on what went wrong and how you can improve for next time. With practice and care, you'll be able to raise a happy and " +
-                "healthy Tamagotchi in no time. Keep trying and don't give up!");
+                "healthy Tamagotchi in no time. Keep trying and don't give up!</html>");
         message.setFont(new Font("Calibri", Font.PLAIN, 18));
         message.setBounds(50, 365, 450, 155);
         message.setHorizontalAlignment(JLabel.CENTER);
