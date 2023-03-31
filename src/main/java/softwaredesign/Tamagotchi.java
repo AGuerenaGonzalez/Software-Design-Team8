@@ -51,7 +51,7 @@ public class Tamagotchi extends JFrame {
         CL.show(PANELSWITCHER, screenName);
     }
 
-    public static void setPet(Animal petInst) {
-        pet = petInst;
+    public static void createPet(String animal, String name, ImageIcon img) {
+        pet = AnimalFactory.getAnimal(animal, name, img);
     }
 }
