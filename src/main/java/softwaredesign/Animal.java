@@ -1,45 +1,47 @@
 package softwaredesign;
 
+import javax.swing.*;
+
 abstract class Animal implements Observer {
 
-    protected Vital hunger, energy, mood, clean;
-    protected String name, color;
-    private boolean isAlive = true;
+    protected final Vital hunger, energy, mood, clean;
+    private final String name;
     private int numEmptyVitals = 0;
     private final int MAXEMPTYVITALS = 2;
+    private final ImageIcon animalImg;
+    private final long startTime;
 
     private final ThreadGroup VITALTHREADS = new ThreadGroup("vitalThreadGroup");
 
-
-    protected void setVals(String name, String color, int cleanDiffVal,
-                           int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
+    public Animal(String name, ImageIcon img, int cleanDiffVal,
+                  int hungerDiffVal, int moodDiffVal, int energyDiffVal) {
         this.name = name;
-        this.color = color;
-        this.hunger = new Vital(hungerDiffVal);
-        this.energy = new Vital(energyDiffVal);
-        this.mood = new Vital(moodDiffVal);
-        this.clean = new Vital(cleanDiffVal);
-
-        hunger.setObserver(this);
-        clean.setObserver(this);
-        energy.setObserver(this);
-        mood.setObserver(this);
+        this.animalImg = img;
+        this.hunger = new Vital(this, hungerDiffVal);
+        this.energy = new Vital(this, energyDiffVal);
+        this.mood = new Vital(this, moodDiffVal);
+        this.clean = new Vital(this, cleanDiffVal);
+        startTime = System.nanoTime();
 
         decreaseAllVitals();
     }
 
-    public void notifyEmpty() {
+
+    public ImageIcon getAnimalImg() {
+        return animalImg;
+    }
+
+    public void notifyEmptyInc() {
         numEmptyVitals++;
 
         if (numEmptyVitals == MAXEMPTYVITALS) {
+            Tamagotchi.switchScreen("DeathScreen");
             VITALTHREADS.interrupt();
-
-            System.out.println("DEAD");
         }
     }
 
-    public void notifyNotEmpty() {
-
+    public void notifyEmptyDec() {
+        numEmptyVitals--;
     }
 
     public Vital getHungerVital() {
@@ -58,27 +60,35 @@ abstract class Animal implements Observer {
         return clean;
     }
 
-    public void play() {
-//        moodLevel.increase();
-        System.out.println("PLAYING");
+    public int played(boolean isGameWon) {
+        energy.decrease();
+
+        if (isGameWon) {
+            return mood.increase();
+        }
+
+        return 0;
     }
 
-    public void clean() {
-//        cleanLevel.increase();
-        System.out.println("CLEANING");
+    public int clean() {
+        return clean.increase();
     }
 
-    public void feed() {
-//        hungerLevel.increase();
-        System.out.println("FEEDING");
+    public abstract int feed(String food);
+
+    public int sleep() {
+        return energy.increase();
     }
 
-    public void sleep() {
-//        sleepLevel.increase();
-        System.out.println("SLEEPING");
+    public String getName() {
+        return name;
     }
 
-    public void decreaseAllVitals() {
+    public long getTimeAlive() {
+        return System.nanoTime() - startTime;
+    }
+
+    private void decreaseAllVitals() {
 
         Thread hungerThread = new Thread(VITALTHREADS, new Runnable() {
             public void run() {

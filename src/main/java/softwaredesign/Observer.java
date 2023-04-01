@@ -1,7 +1,6 @@
 package softwaredesign;
 
 public interface Observer {
-    void notifyEmpty();
-
-    void notifyNotEmpty();
+    void notifyEmptyInc();
+    void notifyEmptyDec();
 }

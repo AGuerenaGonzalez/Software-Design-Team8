@@ -1,68 +1,69 @@
 package softwaredesign;
 
 import javax.swing.*;
-import javax.swing.plaf.InternalFrameUI;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
-    private final int WAITMILSEC = 2000;
-    private int currVal = 100, changeVal;
+    private final int DECINTERVAL = 10000;
+    private final int OFFSET;
     private boolean isEmpty = false;
-    private Observer observer = null;
+    private Observer observer;
 
-    public Vital(int changeVal) {
-        this.changeVal = changeVal;
+    public Vital(Observer obs, int offset) {
+        observer = obs;
+        this.OFFSET = offset;
         this.setMaximum(MAXVAL);
         this.setValue(MAXVAL);
         this.setMinimum(MINVAL);
     }
+    public void decrease(){
+        int currVal = this.getValue();
+        int newVal = currVal - OFFSET;
 
-    public int getVal() {
-        return currVal;
-    }
+        if (newVal <= MINVAL) {
+            newVal = MINVAL;
+            if (!isEmpty && observer != null)
+                observer.notifyEmptyInc();
+            isEmpty = true;
+        }
 
-    public void setObserver(Observer obs) {
-        observer = obs;
+        this.setValue(newVal);
     }
 
     public void constDecrease() {
+
         try {
-            Thread.sleep(WAITMILSEC);
+            Thread.sleep(DECINTERVAL);
 
             while (true) {
-                int newVal = currVal - changeVal;
-
-                if (newVal <= MINVAL) {
-                    currVal = MINVAL;
-                    if (!isEmpty && observer != null)
-                        observer.notifyEmpty();
-                    isEmpty = true;
-                } else {
-                    currVal = newVal;
-                }
-                setValue(currVal);
-                Thread.sleep(WAITMILSEC);
+                decrease();
+                Thread.sleep(DECINTERVAL);
             }
-        }catch(InterruptedException e){
-            System.out.println("Interupt exception");
+        } catch (InterruptedException e) {
+            //expected interupt on thread when Animal dies
         }
 
     }
 
-    public void increase() {
-        int newVal = currVal + changeVal;
+    public int increase() {
+        return increase(1);
+    }
+
+    public int increase(double ratio) {
+        int currVal = this.getValue();
+        int incVal = (int) (ratio * OFFSET);
+        int newVal = currVal + incVal;
 
         if (isEmpty) {
             isEmpty = false;
-            currVal = newVal;
-        }
-        if (newVal >= MAXVAL)
-            currVal = MAXVAL;
-        else {
-            if (isEmpty)
-                isEmpty = false;
-            currVal = newVal;
-        }
+            observer.notifyEmptyDec();
+        } else if (newVal > MAXVAL)
+            newVal = MAXVAL;
+
+        this.setValue(newVal);
+
+        return incVal;
     }
+
 
 }
