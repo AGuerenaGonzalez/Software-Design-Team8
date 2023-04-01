@@ -1,1 +1,1 @@
-This folder will contain the single fat Jar resulting from a full build of your project, one for Assignment 1 and one for Assignment 2.  
+This folder will contain the single fat Jar resulting from a full build of your project, one for Assignment 1 and one for Assignment 2. Jar files are located in artifact directory. The "FirstVersion" jar file was completed for Assignment 2 and the "FinalVersion" jar file was completed for Assignment 3.
