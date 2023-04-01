@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Vital extends JProgressBar {
     private final int MAXVAL = 100, MINVAL = 0;
-    private final int DECINTERVAL = 1000;
+    private final int DECINTERVAL = 30000;
     private final int OFFSET;
     private boolean isEmpty = false;
     private Observer observer;
